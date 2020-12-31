@@ -3,6 +3,10 @@
   text-align: center;
 }
 
-.SimCards {
+.SearchResults {
   padding: 20px 0px 0px 0px;
+}
+
+.Card {
+  padding: 5px 10px 0px 10px;
 }

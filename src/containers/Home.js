@@ -24,7 +24,7 @@ export default function Home() {
   
     try {
       const cards = await search(card);
-      setSimCards(cards.cards[0].similarities.slice(0, 15));
+      setSimCards(cards.cards[0].similarities.slice(0, 12));
       setIsLoading(false);
     } catch (e) {
       onError(e);
@@ -51,9 +51,9 @@ export default function Home() {
     **/
     if (similarities.length > 0) {
       console.log(similarities);
-      const sim1 = similarities.slice(0, 5);
-      const sim2 = similarities.slice(5, 10);
-      const sim3 = similarities.slice(10, 15);
+      const sim1 = similarities.slice(0, 4);
+      const sim2 = similarities.slice(4, 8);
+      const sim3 = similarities.slice(8, 12);
       similarities = [sim1, sim2, sim3];
     }
 
@@ -62,10 +62,10 @@ export default function Home() {
         {similarities.map((sim) => (
           <CardGroup>
           {sim.map(({ name, text, image_urls }) => (
-            <Card>
+            <Card border="light" className="Card text-center">
               <Card.Img variant="top" src={ JSON.parse(image_urls.replaceAll("\'", "\"")).normal } />
               <Card.Body>
-                <Card.Title>{ name }</Card.Title>
+                <Card.Text>{ name }</Card.Text>
               </Card.Body>
             </Card>
           ))}
@@ -91,13 +91,14 @@ export default function Home() {
           </InputGroup.Prepend>
           <Form.Control
             value={card}
+            placeholder="Enter name of a card..."
             as="input"
             size="lg"
             onChange={(e) => setCard(e.target.value)}
           />
         </InputGroup>
       </Form>
-      <div className="SimCards">
+      <div className="SearchResults">
           {!isLoading && renderCardsList(simCards)}
       </div>
     </div>
