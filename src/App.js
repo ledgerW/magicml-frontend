@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
+import NavBar from "./components/NavBar";
 import "./index.css";
 import "./App.css";
 import Routes from "./Routes";
@@ -7,12 +7,9 @@ import Routes from "./Routes";
 function App() {
   return (
     <div className="App">
-      <Navbar collapseOnSelect bg="header" variant="dark" expand="md" className="mb-3">
-        <Navbar.Brand className="font-weight-bold">
-          MagicML
-        </Navbar.Brand>
-        <Navbar.Toggle />
-      </Navbar>
+      <NavBar>
+        MagicML
+      </NavBar>
       <div className="container">
         <Routes />
       </div>
