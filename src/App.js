@@ -1,18 +1,21 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
+import "./index.css";
 import "./App.css";
 import Routes from "./Routes";
 
 function App() {
   return (
-    <div className="App container py-3">
-      <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
-        <Navbar.Brand className="font-weight-bold text-muted">
+    <div className="App">
+      <Navbar collapseOnSelect bg="header" variant="dark" expand="md" className="mb-3">
+        <Navbar.Brand className="font-weight-bold">
           MagicML
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar>
-      <Routes />
+      <div className="container">
+        <Routes />
+      </div>
     </div>
   );
 }

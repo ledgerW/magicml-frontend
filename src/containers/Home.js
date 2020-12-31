@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import CardGroup from "react-bootstrap/CardGroup";
+import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
@@ -61,7 +62,7 @@ export default function Home() {
         {similarities.map((sim) => (
           <CardGroup>
           {sim.map(({ name, text, image_urls }) => (
-            <Card style={{ width: '18rem' }}>
+            <Card>
               <Card.Img variant="top" src={ JSON.parse(image_urls.replaceAll("\'", "\"")).normal } />
               <Card.Body>
                 <Card.Title>{ name }</Card.Title>
@@ -74,6 +75,35 @@ export default function Home() {
     );
   }
 
+  return (
+    <div className="Home">
+      <Form onSubmit={handleSubmit}>
+        <InputGroup controlId="card" className="mb-3">
+          <InputGroup.Prepend>
+            <LoaderButton
+              type="submit"
+              variant="primary"
+              isLoading={isLoading}
+              disabled={!validateForm()}
+            >
+              Search
+            </LoaderButton>
+          </InputGroup.Prepend>
+          <Form.Control
+            value={card}
+            as="input"
+            size="lg"
+            onChange={(e) => setCard(e.target.value)}
+          />
+        </InputGroup>
+      </Form>
+      <div className="SimCards">
+          {!isLoading && renderCardsList(simCards)}
+      </div>
+    </div>
+  );
+
+  /**
   return (
     <div className="Home">
       <Form onSubmit={handleSubmit}>
@@ -100,4 +130,5 @@ export default function Home() {
       </div>
     </div>
   );
+  **/
 }
