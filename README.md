@@ -1,6 +1,6 @@
 # TODO  
 
-- refactor into components  
+- ~~refactor into components~~  
 - filters  
 - search params in url  
 - display searched card  
