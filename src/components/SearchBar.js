@@ -4,7 +4,7 @@ import LoaderButton from "../components/LoaderButton";
 import "../containers/Home.css";
 
 
-export default function(props) {
+export default function SearchBar(props) {
   const { handleSubmit, isLoading, validateForm, card, setCard } = props
 
   return (
@@ -13,7 +13,7 @@ export default function(props) {
         <InputGroup.Prepend>
           <LoaderButton
             type="submit"
-            variant="primary"
+            variant="dark"
             isLoading={isLoading}
             disabled={!validateForm()}
           >

@@ -1,18 +1,21 @@
-import React from "react";
-import NavBar from "./components/NavBar";
+import React, { useState } from "react";
+import { AppContext } from "./libs/contextLib";
+import Routes from "./Routes";
 import "./index.css";
 import "./App.css";
-import Routes from "./Routes";
+
 
 function App() {
+  const [card, setCard] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const allContext = { card, setCard, isLoading, setIsLoading };
+
   return (
     <div className="App">
-      <NavBar>
-        MagicML
-      </NavBar>
-      <div className="container">
+      <AppContext.Provider value={ allContext }>
         <Routes />
-      </div>
+      </AppContext.Provider>
     </div>
   );
 }

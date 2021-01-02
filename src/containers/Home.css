@@ -1,10 +1,30 @@
-.Home .lander {
-  padding: 80px 0px 0px 0px;
+.HomePage {
+  position:fixed;
+  padding:10vh 0vw;
+  margin:0;
+
+  top:0;
+  left:0;
+
+  width: 100%;
+  height: 100%;
+  background-color: purple;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.SearchBar {
+  padding: 10vh 10vw 0vh 10vw;
+  text-align: center;
+}
+
+.ResultsPage {
+  padding: 5vh 0vw 0vh 0vw;
   text-align: center;
 }
 
 .SearchResults {
-  padding: 20px 0px 0px 0px;
+  padding: 2vh 0vw 0vh 0vw;
 }
 
 .Card {

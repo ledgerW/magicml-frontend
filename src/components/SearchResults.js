@@ -3,7 +3,7 @@ import CardDisplay from "./CardDisplay";
 import "../containers/Home.css";
 
 
-export default function(props) {
+export default function SearchResults(props) {
   const { isLoading, simCards, nCardsPerRow } = props
 
   function renderCardsList(similarities, nCardsPerRow) {
