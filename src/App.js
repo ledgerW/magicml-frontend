@@ -6,10 +6,15 @@ import "./App.css";
 
 
 function App() {
-  const [card, setCard] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [formCard, setFormCard] = useState("");
+  const [scryfallCards, setScryfallCards] = useState([]);
 
-  const allContext = { card, setCard, isLoading, setIsLoading };
+  const allContext = {
+    isLoading, setIsLoading,
+    formCard, setFormCard,
+    scryfallCards, setScryfallCards
+  };
 
   return (
     <div className="App">

@@ -1,3 +1,5 @@
+import Row from "react-bootstrap/Row";
+import Col from 'react-bootstrap/Col';
 import CardGroup from "react-bootstrap/CardGroup";
 import CardDisplay from "./CardDisplay";
 import "../containers/Home.css";
@@ -6,25 +8,38 @@ import "../containers/Home.css";
 export default function SearchResults(props) {
   const { isLoading, simCards, nCardsPerRow } = props
 
-  function renderCardsList(similarities, nCardsPerRow) {
-    if (similarities.length > 0) {
-      console.log(similarities);
+  function renderCardsList(cards, nCardsPerRow) {
+    if (cards.length > 0) {
+      cards = cards.map((card) => {
+        if (card.image_urls) {
+          return card
+        } else if (card.image_uris) {
+          return {...card, "image_urls": card.image_uris }
+        } else {
+          return {...card, "image_urls": card.card_faces[0].image_uris }
+        }
+      })
+      console.log(cards);
 
-      var newSims = [];
-      for (var n=0; n < similarities.length; n = n + nCardsPerRow) {
-        newSims.push(similarities.slice(n, n + nCardsPerRow))
+      var newCards = [];
+      for (var n=0; n < cards.length; n = n + nCardsPerRow) {
+        newCards.push(cards.slice(n, n + nCardsPerRow))
       }
-      similarities = newSims;
+      cards = newCards;
     }
 
     return (
       <>
-        {similarities.map((sim) => (
-          <CardGroup>
-          {sim.map(({ name, image_urls }) => (
-            <CardDisplay name={name} image_urls={image_urls}/>
-          ))}
-          </CardGroup>
+        {cards.map((card) => (
+          <Row className="justify-content-md-center">
+            <CardGroup>
+              {card.map(({ name, image_urls }) => (
+                <Col>
+                  <CardDisplay name={name} image_urls={image_urls}/>
+                </Col>
+              ))}
+            </CardGroup>
+          </Row>
         ))}
       </>
     );

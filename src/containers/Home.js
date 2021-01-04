@@ -1,21 +1,27 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
+import SearchResults from "../components/SearchResults";
 import { onError } from "../libs/errorLib";
 import { useAppContext } from "../libs/contextLib";
-import { search } from "../libs/similarityLib";
+import Scryfall from "../libs/scryfall";
 import "./Home.css";
 
 export default function Home() {
   const nCardsPerRow = 5;
   const nCardResults = 25;
 
-  const { card, setCard, isLoading, setIsLoading } = useAppContext();
+  const {
+    isLoading, setIsLoading,
+    formCard, setFormCard,
+    scryfallCards, setScryfallCards
+  } = useAppContext();
+  
   const history = useHistory();
 
 
   function validateForm() {
-    return card.length > 0;
+    return formCard.length > 0;
   }
 
   async function handleSubmit(event) {
@@ -24,9 +30,12 @@ export default function Home() {
     setIsLoading(true);
   
     try {
-      // search here
-      // setIsLoading(false);
-      history.push(`/results/${card}`);
+      const res = await Scryfall.get(`search?q=${formCard}`);
+      const { data } = res.data;
+      console.log(data);
+      setScryfallCards(data)
+      setIsLoading(false);
+      //history.push(`/results/${card}`);
     } catch (e) {
       onError(e);
       setIsLoading(false);
@@ -34,7 +43,7 @@ export default function Home() {
   }
 
   return (
-    <div className="HomePage text-white">
+    <div className="HomePage text-black">
       <h1>MagicML</h1>
       <h3>Find cards with similar functionality</h3>
       <div className="SearchBar container">
@@ -42,17 +51,15 @@ export default function Home() {
           handleSubmit={handleSubmit}
           isLoading={isLoading}
           validateForm={validateForm}
-          card={card}
-          setCard={setCard}
+          card={formCard}
+          setCard={setFormCard}
         />
       </div>
-      {/*
       <SearchResults
         isLoading={isLoading}
-        simCards={simCards}
+        simCards={scryfallCards}
         nCardsPerRow={nCardsPerRow}
       />
-      */}
     </div>
   );
 }
