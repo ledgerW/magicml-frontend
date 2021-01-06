@@ -5,7 +5,7 @@
 - ~~search params in url~~  
 - ~~display searched card~~  
 - smaller results w/ popover  
-- easy search - return cards that contain word (ignore case)  
+- ~~easy search - return cards that contain word (ignore case)~~  
 - search by sentence
 - highlight by similarity score  
 - logo and favicons  

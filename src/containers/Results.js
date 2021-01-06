@@ -90,14 +90,14 @@ export default function Results() {
   function renderSimilarityCards(searchedCard, isLoading, simCards, nCardsPerRow) {
     return (
       <Row>
-        <Col sm={4}>
+        <Col sm={3}>
         {searchedCard && (
           <div className="sticky-top">
             <CardDisplay name={searchedCard.name} image_urls={searchedCard.image_urls}/>
           </div>
         )}
         </Col>
-        <Col sm={8}>
+        <Col sm={9}>
         <SearchResults
           isLoading={isLoading}
           simCards={simCards}

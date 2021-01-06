@@ -9,7 +9,7 @@ export default function Routes() {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route exact path="/results/:nameParam">
+      <Route path="/results/:nameParam">
         <Results />
       </Route>
     </Switch>
