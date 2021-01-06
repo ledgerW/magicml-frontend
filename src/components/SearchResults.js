@@ -11,15 +11,19 @@ export default function SearchResults(props) {
   function renderCardsList(cards, nCardsPerRow) {
     if (cards.length > 0) {
       cards = cards.map((card) => {
+        // Similarity API
         if (card.image_urls) {
           return card
-        } else if (card.image_uris) {
-          return {...card, "image_urls": card.image_uris }
         } else {
-          return {...card, "image_urls": card.card_faces[0].image_uris }
+          // Scryfall API
+          if (card.image_uris) {
+            return {...card, "image_urls": card.image_uris }
+          } else {
+            return {...card, "image_urls": card.card_faces[0].image_uris }
+          }
         }
       })
-      console.log(cards);
+      //console.log(cards);
 
       var newCards = [];
       for (var n=0; n < cards.length; n = n + nCardsPerRow) {

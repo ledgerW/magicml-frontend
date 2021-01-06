@@ -65,8 +65,9 @@ export default function Results() {
   
     try {
       const res = await Scryfall.get(`search?q=${formCard}`);
-      const { data } = res.data;
-      console.log(data);
+      var { data } = res.data;
+      data = data.filter(card => card.hasOwnProperty('arena_id'));
+      //console.log(data);
       setScryfallCards(data)
       setSimCards([]);
       setIsLoading(false);
