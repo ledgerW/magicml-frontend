@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
-import Col from 'react-bootstrap/Col'
+import Col from 'react-bootstrap/Col';
+
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import CardDisplay from "../components/CardDisplay";
+import Filters from "../components/Filters";
 import Scryfall from "../libs/scryfall";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
@@ -20,27 +22,69 @@ export default function Results() {
   const {
     isLoading, setIsLoading,
     formCard, setFormCard,
-    scryfallCards, setScryfallCards
+    scryfallCards, setScryfallCards,
+    filters
   } = useAppContext();
 
   const [searchedCard, setSearchedCard] = useState(null);
   const [simCards, setSimCards] = useState([]);
+  const [filteredSimCards, setFilteredSimCards] = useState([]);
 
   const { nameParam } = useParams();
 
 
   useEffect(() => {
     setIsLoading(true);
-    newSearch();
+    newSimSearch();
   }, [nameParam]);
 
-  async function newSearch() {
+
+  useEffect(() => {
+    setIsLoading(true);
+    applyFilters();
+  }, [filters]);
+
+
+  function applyFilters() {
+    try {
+      console.log(filters);
+      let filteredCards = simCards;
+      console.log(filteredCards);
+      
+      // get color filters
+      let filterColors = Object.entries(filters.colors).map(pair => {
+        if (pair[1]) {
+          return pair[0]
+        }
+      }).filter(el => el != null);
+
+      filteredCards = filteredCards.map(card => {
+        if (filterColors.some(c => card.colors.includes(c))) {
+          return card
+        }
+      }).filter(el => el != null);
+
+      setFilteredSimCards(filteredCards.slice(0, nCardResults));
+      setIsLoading(false);
+
+      // get mana cost filters
+    }
+    catch(e) {
+      onError(e);
+      setIsLoading(false);
+    }
+  }
+
+  async function newSimSearch() {
     try {
       const res = await search(nameParam);
       console.log(res);
       if (res.cards.length > 0) {
-        setSearchedCard(res.cards[0])
-        setSimCards(res.cards[0].similarities.slice(0, nCardResults));
+        let resSearchCard = res.cards[0]
+        let resSimCards = res.cards[0].similarities.slice(0, nCardResults);
+        setSearchedCard(resSearchCard);
+        setSimCards(resSimCards);
+        setFilteredSimCards(resSimCards);
         setIsLoading(false);
       } else {
         onError("Sorry, we don't have similarities for that card yet.")
@@ -67,8 +111,7 @@ export default function Results() {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
       data = data.filter(card => card.hasOwnProperty('arena_id'));
-      //console.log(data);
-      setScryfallCards(data)
+      setScryfallCards(data);
       setSimCards([]);
       setIsLoading(false);
     } catch (e) {
@@ -108,7 +151,6 @@ export default function Results() {
     )
   }
 
-
   return (
     <div>
       <NavBar>
@@ -122,8 +164,9 @@ export default function Results() {
           card={formCard}
           setCard={setFormCard}
         />
+        <Filters/>
         {simCards.length > 0
-          ? renderSimilarityCards(searchedCard, isLoading, simCards, nCardsPerRow)
+          ? renderSimilarityCards(searchedCard, isLoading, filteredSimCards, nCardsPerRow)
           : renderScryfallCards(isLoading, scryfallCards, nCardsPerRow)
         }
       </div>
