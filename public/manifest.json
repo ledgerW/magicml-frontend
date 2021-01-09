@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MagicML",
+  "name": "MagicML: Semantic Similarity Search for MTG",
   "icons": [
     {
       "src": "favicon.ico",
