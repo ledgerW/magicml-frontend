@@ -51,7 +51,7 @@ export default function Results() {
       let filteredCards = simCards;
       console.log(filteredCards);
       
-      // get color filters
+      // apply color filters
       let filterColors = Object.entries(filters.colors).map(pair => {
         if (pair[1]) {
           return pair[0]
@@ -64,10 +64,22 @@ export default function Results() {
         }
       }).filter(el => el != null);
 
+      // apply type filters
+      let filterTypes = Object.entries(filters.type).map(pair => {
+        if (pair[1]) {
+          return pair[0]
+        }
+      }).filter(el => el != null);
+
+      filteredCards = filteredCards.map(card => {
+        if (filterTypes.some(t => card.types.includes(t))) {
+          return card
+        }
+      }).filter(el => el != null);
+
+      // No more filters
       setFilteredSimCards(filteredCards.slice(0, nCardResults));
       setIsLoading(false);
-
-      // get mana cost filters
     }
     catch(e) {
       onError(e);

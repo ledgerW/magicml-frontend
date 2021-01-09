@@ -17,6 +17,15 @@ function App() {
       U: true,
       R: true,
       0: true
+    },
+    type: {
+      Creature: true,
+      Planeswalker: true,
+      Instant: true,
+      Sorcery: true,
+      Enchantment: true,
+      Artifact: true,
+      Land: true
     }
   });
 
