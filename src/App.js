@@ -35,6 +35,15 @@ function App() {
       4: true,
       5: true,
       6: true
+    },
+    format: {
+      standard: true,
+      historic: true,
+      brawl: true,
+      commander: true,
+      pauper: true,
+      oldschool: true,
+      modern: true
     }
   });
 

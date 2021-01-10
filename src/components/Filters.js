@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import ColorFilter from "./filters/ColorFilter";
 import TypeFilter from "./filters/TypeFilter";
 import ManaCostFilter from "./filters/ManaCostFilter";
+import FormatFilter from "./filters/FormatFilter";
 import { onError } from "../libs/errorLib";
 import { useAppContext } from "../libs/contextLib";
 
@@ -82,6 +83,28 @@ export default function Filters() {
         case '6':
           setFilters({...filters, manaCost: {...filters.manaCost, 6: value}});
           break;
+        // Format Filters
+        case 'standard':
+          setFilters({...filters, format: {...filters.format, standard: value}});
+          break;
+        case 'historic':
+          setFilters({...filters, format: {...filters.format, historic: value}});
+          break;
+        case 'brawl':
+          setFilters({...filters, format: {...filters.format, brawl: value}});
+          break;
+        case 'commander':
+          setFilters({...filters, format: {...filters.format, commander: value}});
+          break;
+        case 'pauper':
+          setFilters({...filters, format: {...filters.format, pauper: value}});
+          break;
+        case 'oldschool':
+          setFilters({...filters, format: {...filters.format, oldschool: value}});
+          break;
+        case 'modern':
+          setFilters({...filters, format: {...filters.format, modern: value}});
+          break;
         default:
           console.log(filters);
       }
@@ -100,6 +123,9 @@ export default function Filters() {
       </Form.Row>
       <Form.Row>
         <ManaCostFilter handleFilters={handleFilters}/>
+      </Form.Row>
+      <Form.Row>
+        <FormatFilter handleFilters={handleFilters}/>
       </Form.Row>
     </Form>
   )

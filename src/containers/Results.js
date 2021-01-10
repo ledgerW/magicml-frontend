@@ -94,6 +94,25 @@ export default function Results() {
         }
       }).filter(el => el != null);
 
+      // apply format filters
+      let filterFormat = Object.entries(filters.format).map(pair => {
+        if (pair[1]) {
+          return pair[0]
+        }
+      }).filter(el => el != null);
+
+      filteredCards = filteredCards.map(card => {
+        let legalFormats = Object.entries(card).map(pair => {
+          if (pair[1] == "Legal") {
+            return pair[0]
+          }
+        }).filter(el => el != null).join(',');
+        
+        if (filterFormat.some(f => legalFormats.includes(f))) {
+          return card
+        }
+      }).filter(el => el != null);
+
       // No more filters
       setFilteredSimCards(filteredCards.slice(0, nCardResults));
       setIsLoading(false);
