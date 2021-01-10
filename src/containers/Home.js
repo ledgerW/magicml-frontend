@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import { onError } from "../libs/errorLib";
@@ -9,17 +8,15 @@ import "./Home.css";
 
 export default function Home() {
   const nCardsPerRow = 5;
-  const nCardResults = 25;
 
   const {
     isLoading, setIsLoading,
     formCard, setFormCard,
     scryfallCards, setScryfallCards
   } = useAppContext();
-  
-  const history = useHistory();
 
 
+  // Scryfall Search
   function validateForm() {
     return formCard.length > 0;
   }
@@ -33,10 +30,9 @@ export default function Home() {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
       data = data.filter(card => card.hasOwnProperty('arena_id'));
-      //console.log(data);
+
       setScryfallCards(data)
       setIsLoading(false);
-      //history.push(`/results/${card}`);
     } catch (e) {
       onError(e);
       setIsLoading(false);

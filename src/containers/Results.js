@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
@@ -12,6 +12,7 @@ import Scryfall from "../libs/scryfall";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import { search } from "../libs/similarityLib";
+import { applyFilters } from "../libs/filtersLib";
 import "./Home.css";
 
 
@@ -23,12 +24,11 @@ export default function Results() {
     isLoading, setIsLoading,
     formCard, setFormCard,
     scryfallCards, setScryfallCards,
+    searchedCard, setSearchedCard,
+    simCards, setSimCards,
+    filteredSimCards, setFilteredSimCards,
     filters
   } = useAppContext();
-
-  const [searchedCard, setSearchedCard] = useState(null);
-  const [simCards, setSimCards] = useState([]);
-  const [filteredSimCards, setFilteredSimCards] = useState([]);
 
   const { nameParam } = useParams();
 
@@ -41,88 +41,11 @@ export default function Results() {
 
   useEffect(() => {
     setIsLoading(true);
-    applyFilters();
+    applyFilters(filters, simCards, nCardResults, setFilteredSimCards, setIsLoading, onError);
   }, [filters]);
 
-
-  function applyFilters() {
-    try {
-      console.log(filters);
-      let filteredCards = simCards;
-      console.log(filteredCards);
-      
-      // apply color filters
-      let filterColors = Object.entries(filters.colors).map(pair => {
-        if (pair[1]) {
-          return pair[0]
-        }
-      }).filter(el => el != null);
-
-      filteredCards = filteredCards.map(card => {
-        if (filterColors.some(c => card.colors.includes(c))) {
-          return card
-        }
-      }).filter(el => el != null);
-
-      // apply type filters
-      let filterTypes = Object.entries(filters.type).map(pair => {
-        if (pair[1]) {
-          return pair[0]
-        }
-      }).filter(el => el != null);
-
-      filteredCards = filteredCards.map(card => {
-        if (filterTypes.some(t => card.types.includes(t))) {
-          return card
-        }
-      }).filter(el => el != null);
-
-      // apply mana cost filters
-      let filterMana = Object.entries(filters.manaCost).map(pair => {
-        if (pair[1]) {
-          if (pair[0] == "lt1") {
-            return "0"
-          } else {
-            return pair[0]
-          }
-        }
-      }).filter(el => el != null);
-
-      filteredCards = filteredCards.map(card => {
-        if (filterMana.some(m => Number(m) == Number(card.convertedManaCost))) {
-          return card
-        }
-      }).filter(el => el != null);
-
-      // apply format filters
-      let filterFormat = Object.entries(filters.format).map(pair => {
-        if (pair[1]) {
-          return pair[0]
-        }
-      }).filter(el => el != null);
-
-      filteredCards = filteredCards.map(card => {
-        let legalFormats = Object.entries(card).map(pair => {
-          if (pair[1] == "Legal") {
-            return pair[0]
-          }
-        }).filter(el => el != null).join(',');
-        
-        if (filterFormat.some(f => legalFormats.includes(f))) {
-          return card
-        }
-      }).filter(el => el != null);
-
-      // No more filters
-      setFilteredSimCards(filteredCards.slice(0, nCardResults));
-      setIsLoading(false);
-    }
-    catch(e) {
-      onError(e);
-      setIsLoading(false);
-    }
-  }
-
+  
+  // Similarity Search
   async function newSimSearch() {
     try {
       const res = await search(nameParam);
@@ -146,6 +69,7 @@ export default function Results() {
   }
 
 
+  // Scryfall Search
   function validateForm() {
     return formCard.length > 0;
   }
@@ -168,6 +92,7 @@ export default function Results() {
     }
   }
 
+  // Conditional Renders
   function renderScryfallCards(isLoading, scryfallCards, nCardsPerRow) {
     return (
         <SearchResults
@@ -198,6 +123,7 @@ export default function Results() {
       </Row>
     )
   }
+
 
   return (
     <div>

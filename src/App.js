@@ -9,6 +9,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [formCard, setFormCard] = useState("");
   const [scryfallCards, setScryfallCards] = useState([]);
+  const [searchedCard, setSearchedCard] = useState(null);
+  const [simCards, setSimCards] = useState([]);
+  const [filteredSimCards, setFilteredSimCards] = useState([]);
   const [filters, setFilters] = useState({
     colors: {
       W: true,
@@ -51,6 +54,9 @@ function App() {
     isLoading, setIsLoading,
     formCard, setFormCard,
     scryfallCards, setScryfallCards,
+    searchedCard, setSearchedCard,
+    simCards, setSimCards,
+    filteredSimCards, setFilteredSimCards,
     filters, setFilters
   };
 
