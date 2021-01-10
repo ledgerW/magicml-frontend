@@ -77,6 +77,23 @@ export default function Results() {
         }
       }).filter(el => el != null);
 
+      // apply mana cost filters
+      let filterMana = Object.entries(filters.manaCost).map(pair => {
+        if (pair[1]) {
+          if (pair[0] == "lt1") {
+            return "0"
+          } else {
+            return pair[0]
+          }
+        }
+      }).filter(el => el != null);
+
+      filteredCards = filteredCards.map(card => {
+        if (filterMana.some(m => Number(m) == Number(card.convertedManaCost))) {
+          return card
+        }
+      }).filter(el => el != null);
+
       // No more filters
       setFilteredSimCards(filteredCards.slice(0, nCardResults));
       setIsLoading(false);

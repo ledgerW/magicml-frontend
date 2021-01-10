@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import Row from "react-bootstrap/Row";
-import Col from 'react-bootstrap/Col';
+import React from "react";
 
 import Form from 'react-bootstrap/Form';
 
 import ColorFilter from "./filters/ColorFilter";
 import TypeFilter from "./filters/TypeFilter";
+import ManaCostFilter from "./filters/ManaCostFilter";
 import { onError } from "../libs/errorLib";
 import { useAppContext } from "../libs/contextLib";
 
@@ -61,6 +60,28 @@ export default function Filters() {
         case 'Land':
           setFilters({...filters, type: {...filters.type, Land: value}});
           break;
+        // Mana Cost Filters
+        case 'lt1':
+          setFilters({...filters, manaCost: {...filters.manaCost, lt1: value}});
+          break;
+        case '1':
+          setFilters({...filters, manaCost: {...filters.manaCost, 1: value}});
+          break;
+        case '2':
+          setFilters({...filters, manaCost: {...filters.manaCost, 2: value}});
+          break;
+        case '3':
+          setFilters({...filters, manaCost: {...filters.manaCost, 3: value}});
+          break;
+        case '4':
+          setFilters({...filters, manaCost: {...filters.manaCost, 4: value}});
+          break;
+        case '5':
+          setFilters({...filters, manaCost: {...filters.manaCost, 5: value}});
+          break;
+        case '6':
+          setFilters({...filters, manaCost: {...filters.manaCost, 6: value}});
+          break;
         default:
           console.log(filters);
       }
@@ -76,6 +97,9 @@ export default function Filters() {
       </Form.Row>
       <Form.Row>
         <TypeFilter handleFilters={handleFilters}/>
+      </Form.Row>
+      <Form.Row>
+        <ManaCostFilter handleFilters={handleFilters}/>
       </Form.Row>
     </Form>
   )

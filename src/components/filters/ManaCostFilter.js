@@ -9,75 +9,75 @@ import { useAppContext } from "../../libs/contextLib";
 import "../../containers/Home.css";
 
 
-export default function TypeFilter(props) {
+export default function ManaCostFilter(props) {
   const { filters } = useAppContext();
   const { handleFilters } = props;
 
   return (
-    <Form.Group as={Row} id='type'>
-      <Form.Label column='lg' sm={2}>
-        Type
+    <Form.Group as={Row} id='manaCost'>
+      <Form.Label column='lg' sm={3}>
+        Mana Cost
       </Form.Label>
-      <Col sm>
+      <Col sm={{ padding: 5 }}>
         <Form.Check
           inline
-          checked={filters.type.Creature}
-          label="Creature"
-          id='Creature'
+          checked={filters.manaCost["lt1"]}
+          label="0"
+          id='lt1'
           onChange={(e) => handleFilters(e.target.id, e.target.checked)}
         />
       </Col>
-      <Col sm>
+      <Col sm={{ padding: 5 }}>
         <Form.Check
             inline
-            checked={filters.type.Planeswalker}
-            label="Planeswalker"
-            id='Planeswalker'
-            onChange={(e) => handleFilters(e.target.id, e.target.checked)}
-        />
-      </Col>
-      <Col sm>
-        <Form.Check
-            inline
-            checked={filters.type.Instant}
-            label="Instant"
-            id='Instant'
-            onChange={(e) => handleFilters(e.target.id, e.target.checked)}
-        />
-      </Col>
-      <Col sm>
-        <Form.Check
-            inline
-            checked={filters.type.Sorcery}
-            label="Sorcery"
-            id='Sorcery'
+            checked={filters.manaCost["1"]}
+            label="1"
+            id='1'
             onChange={(e) => handleFilters(e.target.id, e.target.checked)}
         />
       </Col>
       <Col sm={{ padding: 5 }}>
         <Form.Check
             inline
-            checked={filters.type.Enchantment}
-            label="Enchantment"
-            id='Enchantment'
+            checked={filters.manaCost["2"]}
+            label="2"
+            id='2'
             onChange={(e) => handleFilters(e.target.id, e.target.checked)}
         />
       </Col>
       <Col sm={{ padding: 5 }}>
         <Form.Check
             inline
-            checked={filters.type.Artifact}
-            label="Artifact"
-            id='Artifact'
+            checked={filters.manaCost["3"]}
+            label="3"
+            id='3'
             onChange={(e) => handleFilters(e.target.id, e.target.checked)}
         />
       </Col>
       <Col sm={{ padding: 5 }}>
         <Form.Check
             inline
-            checked={filters.type.Land}
-            label="Land"
-            id='Land'
+            checked={filters.manaCost["4"]}
+            label="4"
+            id='4'
+            onChange={(e) => handleFilters(e.target.id, e.target.checked)}
+        />
+      </Col>
+      <Col sm={{ padding: 5 }}>
+        <Form.Check
+            inline
+            checked={filters.manaCost["5"]}
+            label="5"
+            id='5'
+            onChange={(e) => handleFilters(e.target.id, e.target.checked)}
+        />
+      </Col>
+      <Col sm={{ padding: 5 }}>
+        <Form.Check
+            inline
+            checked={filters.manaCost["6"]}
+            label="6+"
+            id='6'
             onChange={(e) => handleFilters(e.target.id, e.target.checked)}
         />
       </Col>

@@ -3,7 +3,7 @@ import "../containers/Home.css";
 
 
 export default function CardDisplay(props) {
-  const { name, image_urls } = props;
+  let { name, image_urls } = props;
   var src = '';
   
   try {
@@ -17,9 +17,6 @@ export default function CardDisplay(props) {
       <Card.Link href={`/results/${name}`}>
         <Card.Img variant="top" src={ src } />
       </Card.Link>
-      <Card.Body>
-        <Card.Text>{ name }</Card.Text>
-      </Card.Body>
     </Card>
   )
 }
