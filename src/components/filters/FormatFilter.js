@@ -14,7 +14,7 @@ export default function FormatFilter(props) {
   const { handleFilters } = props;
 
   return (
-    <Form.Group as={Row} id='format'>
+    <Form.Group as={Row} id='format' className="Filters">
       <Form.Label column='lg' sm={2}>
         Format
       </Form.Label>

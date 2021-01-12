@@ -14,7 +14,7 @@ export default function ColorFilter(props) {
   const { handleFilters } = props;
 
   return (
-    <Form.Group as={Row} id='color'>
+    <Form.Group as={Row} id='color' className="Filters">
       <Form.Label column='lg' sm={2}>
         Color
       </Form.Label>

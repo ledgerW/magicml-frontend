@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
 
-import NavBar from "../components/NavBar";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import CardDisplay from "../components/CardDisplay";
@@ -126,11 +127,8 @@ export default function Results() {
 
 
   return (
-    <div>
-      <NavBar>
-        MagicML
-      </NavBar>
-      <div className="ResultsPage container">
+    <div className="ResultsPage">
+      <Header>
         <SearchBar
           handleSubmit={handleSubmit}
           isLoading={isLoading}
@@ -138,12 +136,17 @@ export default function Results() {
           card={formCard}
           setCard={setFormCard}
         />
-        <Filters/>
+      </Header>
+      <div className="container">
+        <div className="ResultsFilters">
+          <Filters/>
+        </div>
         {simCards.length > 0
           ? renderSimilarityCards(searchedCard, isLoading, filteredSimCards, nCardsPerRow)
           : renderScryfallCards(isLoading, scryfallCards, nCardsPerRow)
         }
       </div>
+      <Footer></Footer>
     </div>
   );
 }

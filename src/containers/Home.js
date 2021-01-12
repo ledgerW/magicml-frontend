@@ -1,4 +1,10 @@
 import React from "react";
+
+import Row from "react-bootstrap/Row";
+import Col from 'react-bootstrap/Col';
+
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import { onError } from "../libs/errorLib";
@@ -40,23 +46,31 @@ export default function Home() {
   }
 
   return (
-    <div className="HomePage text-black">
-      <h1>MagicML</h1>
-      <h3>Find cards with similar functionality</h3>
-      <div className="SearchBar container">
-        <SearchBar
-          handleSubmit={handleSubmit}
-          isLoading={isLoading}
-          validateForm={validateForm}
-          card={formCard}
-          setCard={setFormCard}
-        />
+    <div>
+      <div class="HomePageMain text-black">
+        <Header></Header>
+        <div class="HomePageTitle">
+          <h1>MagicML</h1>
+          <h5>Find cards with similar functionality</h5>
+        </div>
+        <div className="HomeSearchBar container">
+          <SearchBar
+            handleSubmit={handleSubmit}
+            isLoading={isLoading}
+            validateForm={validateForm}
+            card={formCard}
+            setCard={setFormCard}
+          />
+        </div>
+        <div className="HomeSearchResults">
+          <SearchResults
+            isLoading={isLoading}
+            simCards={scryfallCards}
+            nCardsPerRow={nCardsPerRow}
+          />
+        </div>
       </div>
-      <SearchResults
-        isLoading={isLoading}
-        simCards={scryfallCards}
-        nCardsPerRow={nCardsPerRow}
-      />
+      <Footer></Footer>
     </div>
   );
 }

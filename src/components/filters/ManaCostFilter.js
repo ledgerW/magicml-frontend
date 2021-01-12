@@ -14,8 +14,8 @@ export default function ManaCostFilter(props) {
   const { handleFilters } = props;
 
   return (
-    <Form.Group as={Row} id='manaCost'>
-      <Form.Label column='lg' sm={3}>
+    <Form.Group as={Row} id='manaCost' className="Filters">
+      <Form.Label column='lg' sm={2}>
         Mana Cost
       </Form.Label>
       <Col sm={{ padding: 5 }}>

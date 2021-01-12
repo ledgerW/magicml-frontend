@@ -114,19 +114,11 @@ export default function Filters() {
   }
 
   return (
-    <Form>
-      <Form.Row>
-        <ColorFilter handleFilters={handleFilters}/>
-      </Form.Row>
-      <Form.Row>
-        <TypeFilter handleFilters={handleFilters}/>
-      </Form.Row>
-      <Form.Row>
-        <ManaCostFilter handleFilters={handleFilters}/>
-      </Form.Row>
-      <Form.Row>
-        <FormatFilter handleFilters={handleFilters}/>
-      </Form.Row>
+    <Form className="Filters">
+      <ColorFilter handleFilters={handleFilters}/>
+      <TypeFilter handleFilters={handleFilters}/>
+      <ManaCostFilter handleFilters={handleFilters}/>
+      <FormatFilter handleFilters={handleFilters}/>
     </Form>
   )
 }

@@ -14,7 +14,7 @@ export default function TypeFilter(props) {
   const { handleFilters } = props;
 
   return (
-    <Form.Group as={Row} id='type'>
+    <Form.Group as={Row} id='type' className="Filters">
       <Form.Label column='lg' sm={2}>
         Type
       </Form.Label>

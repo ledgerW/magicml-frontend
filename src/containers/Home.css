@@ -1,34 +1,102 @@
-.HomePage {
-  /*
-  position:fixed;
-  top:0;
-  left:0;
-
-  width: 100%;
+.HomePageMain {
+  position: static;
   height: 100%;
-  */
-  padding:10vh 10vw;
-  margin:0;
 
-  
-  background-color: white;
+  padding: 0vh 0vw 2vh 0vw;
+  margin: 0;
+
+  background-image: linear-gradient(to bottom right, #CF3A28, #1e5081);
+  text-align: center;
+}
+
+.HomePageTitle {
+  border-radius: 25px;
+  border: 5px solid white;
+  margin: 10vh 30vw 0vh 30vw;
+  padding: 2vh 0vw;
+  background-image: linear-gradient(to bottom right, #000000, #cf392846);
+  color: white;
+}
+
+.HomeSearchBar {
+  padding: 10vh 12vw 0vh 12vw;
   text-align: center;
 }
 
 .SearchBar {
-  padding: 10vh 10vw 0vh 10vw;
+  height: 8vh;
+  font-size: 5vh;
+}
+
+.HomeSearchResults {
+  margin: 2vh 7vw 0vh 7vw;
+  background: rgba(255, 255, 255, 0);
+}
+
+.HomePageStats {
+
+}
+
+.BrandHeader {
+  font-size: 4vh;
+}
+
+.Header {
+  font-size: large;
+  padding: 1vh 5vw 1vh 5vw;
+  margin: 0vh 0vw 0vh 0vw;
+}
+
+footer {
+  padding: 5vh 5vw 2vh 5vw;
   text-align: center;
+  background: black;
+  color: white;
+  box-shadow: 0 50vh 0 50vh #000;
+}
+
+footer .content {
+  padding: 0vh 0vw 3vh 0vw;
+}
+
+footer .legal {
+  padding: 1vh 5vw 0vh 5vw;
+  font-size: x-small;
+  color: darkgray;
+}
+
+input[type="text"] {
+  font-size: 24px;
 }
 
 .ResultsPage {
-  padding: 5vh 0vw 0vh 0vw;
+  position: static;
+  height: 100%;
+
+  padding: 0vh 0vw 2vh 0vw;
+  margin: 0;
+
+  background-image: linear-gradient(to bottom right, #CF3A28, #1e5081);
+  text-align: center;
+}
+
+.ResultsFilters {
+  padding: 5vh 0vw 2vh 0vw;
+}
+
+.Filters {
+  padding: 0vh 1vw 0vh 1vw;
+  margin: 0;
   text-align: center;
 }
 
 .SearchResults {
-  /*padding: 2vh 0vw 0vh 0vw;*/
+  padding: 2vh 0vw 0vh 0vw;
+  background: rgba(255, 255, 255, 0);
 }
 
 .Card {
   padding: 5px 0px 5px 0px;
+  background: rgba(255, 255, 255, 0);
+  border :rgba(255, 255, 255, 0);
 }
