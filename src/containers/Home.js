@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -10,17 +10,13 @@ import Scryfall from "../libs/scryfall";
 import "./Home.css";
 
 export default function Home() {
-  const nCardsPerRow = 5;
+  const nCardsPerRow = 4;
 
   const {
     isLoading, setIsLoading,
     formCard, setFormCard,
     scryfallCards, setScryfallCards
   } = useAppContext();
-
-
-  useEffect(() => {
-  });
 
 
   // Scryfall Search

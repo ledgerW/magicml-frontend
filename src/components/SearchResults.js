@@ -34,15 +34,13 @@ export default function SearchResults(props) {
     return (
       <>
         {cards.map((card) => (
-          <Row className="justify-content-md-center">
-            <CardGroup>
-              {card.map(({ name, image_urls }) => (
-                <Col>
-                  <CardDisplay name={name} image_urls={image_urls}/>
-                </Col>
-              ))}
-            </CardGroup>
-          </Row>
+          <CardGroup className="justify-content-md-center">
+            {card.map(({ name, image_urls }) => (
+              <Col md={3}>
+                <CardDisplay name={name} image_urls={image_urls}/>
+              </Col>
+            ))}
+          </CardGroup>
         ))}
       </>
     );
