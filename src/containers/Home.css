@@ -1,13 +1,13 @@
 .HomePageMain {
   position: static;
-  height: 100%;
+  min-height: 100vh;
 
   padding: 0vh 0vw 2vh 0vw;
   margin: 0;
 
-  /*background-image: linear-gradient(to top, var(--dark-dark), var(--light-dark));*/
   background: url("../assets/happy_win.png") #3c8d89;
-  background-size: cover;
+  background-size: auto;
+  background-position: center top;
   background-blend-mode: overlay;
   text-align: center;
 }

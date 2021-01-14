@@ -1,7 +1,4 @@
-import React from "react";
-
-import Row from "react-bootstrap/Row";
-import Col from 'react-bootstrap/Col';
+import React, { useEffect } from "react";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -20,6 +17,10 @@ export default function Home() {
     formCard, setFormCard,
     scryfallCards, setScryfallCards
   } = useAppContext();
+
+
+  useEffect(() => {
+  });
 
 
   // Scryfall Search

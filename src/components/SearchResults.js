@@ -23,7 +23,6 @@ export default function SearchResults(props) {
           }
         }
       })
-      //console.log(cards);
 
       var newCards = [];
       for (var n=0; n < cards.length; n = n + nCardsPerRow) {
