@@ -5,22 +5,31 @@
   padding: 0vh 0vw 2vh 0vw;
   margin: 0;
 
-  background-image: linear-gradient(to bottom right, #CF3A28, #1e5081);
+  /*background-image: linear-gradient(to top, var(--dark-dark), var(--light-dark));*/
+  background: url("../assets/happy_win.png") #3c8d89;
+  background-size: cover;
+  background-blend-mode: overlay;
   text-align: center;
 }
 
 .HomePageTitle {
+  /*
   border-radius: 25px;
-  border: 5px solid white;
-  margin: 10vh 30vw 0vh 30vw;
+  border: 5px solid var(--light-blue);
+  */
+  background: #1f28337c;
+  margin: 10vh 0vw 0vh 0vw;
   padding: 2vh 0vw;
-  background-image: linear-gradient(to bottom right, #000000, #cf392846);
-  color: white;
+  color: var(--light-grey);
 }
 
 .HomeSearchBar {
   padding: 10vh 12vw 0vh 12vw;
   text-align: center;
+}
+
+.HomeSearchBar .input-group-prepend {
+  background: var(--dark-dark);
 }
 
 .SearchBar {
@@ -39,20 +48,38 @@
 
 .BrandHeader {
   font-size: 4vh;
+  color: #D1E8E2;
 }
 
 .Header {
+  color: #D1E8E2;
   font-size: large;
   padding: 1vh 5vw 1vh 5vw;
   margin: 0vh 0vw 0vh 0vw;
 }
 
+.Header .navbar-brand {
+  color: var(--light-grey);
+}
+
+.Header .navbar-brand:hover {
+  color: var(--light-grey);
+}
+
+.Header .navbar-nav .nav-link {
+  color: var(--light-grey);
+}
+
+.Header .navbar-nav .nav-link:hover {
+  color: var(--dark-blue);
+}
+
 footer {
   padding: 5vh 5vw 2vh 5vw;
   text-align: center;
-  background: black;
-  color: white;
-  box-shadow: 0 50vh 0 50vh #000;
+  background: var(--dark-dark);
+  color: var(--light-grey);
+  box-shadow: 0 50vh 0 50vh var(--dark-dark);
 }
 
 footer .content {
@@ -62,7 +89,7 @@ footer .content {
 footer .legal {
   padding: 1vh 5vw 0vh 5vw;
   font-size: x-small;
-  color: darkgray;
+  color: var(--light-grey);
 }
 
 input[type="text"] {
@@ -76,7 +103,7 @@ input[type="text"] {
   padding: 0vh 0vw 2vh 0vw;
   margin: 0;
 
-  background-image: linear-gradient(to bottom right, #CF3A28, #1e5081);
+  background-image: linear-gradient(to top, var(--dark-dark), var(--light-dark));
   text-align: center;
 }
 
@@ -88,6 +115,7 @@ input[type="text"] {
   padding: 0vh 1vw 0vh 1vw;
   margin: 0;
   text-align: center;
+  color: var(--light-grey);
 }
 
 .SearchResults {

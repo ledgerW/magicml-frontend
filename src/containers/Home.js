@@ -47,11 +47,11 @@ export default function Home() {
 
   return (
     <div>
-      <div class="HomePageMain text-black">
+      <div class="HomePageMain">
         <Header></Header>
         <div class="HomePageTitle">
-          <h1>MagicML</h1>
-          <h5>Find cards with similar functionality</h5>
+          <h2>Find cards with similar functionality</h2>
+          <h5>Semantic search powered by Natural Language Processing</h5>
         </div>
         <div className="HomeSearchBar container">
           <SearchBar

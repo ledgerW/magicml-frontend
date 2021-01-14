@@ -8,8 +8,8 @@ import "../App.css";
 
 export default function Header(props) {
   return (
-    <Navbar collapseOnSelect className="bg-header Header" variant="dark" expand="md">
-      <Navbar.Brand href="/" className="BrandHeader font-weight-bold">MagicML</Navbar.Brand>
+    <Navbar collapseOnSelect className="bg-header Header" expand="md">
+      <Navbar.Brand href="/" className="BrandHeader">MagicML</Navbar.Brand>
       {props.children}
       <Navbar.Collapse className="justify-content-end">
         <Nav>
