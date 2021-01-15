@@ -144,7 +144,7 @@ export default function Results() {
       </Header>
       <div className="container">
         <div className="ResultsFilters">
-          <Filters/>
+          <Filters></Filters>
         </div>
         {simCards.length > 0
           ? renderSimilarityCards(searchedCard, isLoading, filteredSimCards, nCardsPerRow)

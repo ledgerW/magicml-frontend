@@ -112,10 +112,61 @@ input[type="text"] {
 }
 
 .Filters {
-  padding: 0vh 1vw 0vh 1vw;
-  margin: 0;
+  margin: 0vh 12vw 0vh 12vw;
   text-align: center;
   color: var(--light-grey);
+}
+
+.Filters button {
+  background: var(--dark-dark) !important;
+  border: var(--dark-blue) !important;
+  color: var(--light-grey) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.Filters button:hover {
+  background: var(--dark-blue) !important;
+  border: var(--dark-blue) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.Filters button:active {
+  background: var(--dark-blue) !important;
+  border: var(--dark-blue) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/*
+.Filters .form-group {
+  background: var(--dark-blue) !important;
+  border: var(--dark-blue) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+*/
+
+.dropdown-menu {
+  background: var(--light-dark) !important;
+  color: var(--light-grey);
+  z-index: 10000;
+}
+
+.dropdown-item {
+  background: var(--light-dark) !important;
+  color: var(--light-grey);
+}
+
+.dropdown-item:hover {
+  background: var(--light-dark) !important;
+  color: var(--dark-blue);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background: var(--light-dark) !important;
+  color: var(--dark-blue) !important;
 }
 
 .SearchResults {

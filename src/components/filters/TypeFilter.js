@@ -1,6 +1,6 @@
 import React from "react";
-import Row from "react-bootstrap/Row";
-import Col from 'react-bootstrap/Col';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import Form from 'react-bootstrap/Form';
 
@@ -14,73 +14,16 @@ export default function TypeFilter(props) {
   const { handleFilters } = props;
 
   return (
-    <Form.Group as={Row} id='type' className="Filters">
-      <Form.Label column='lg' sm={2}>
-        Type
-      </Form.Label>
-      <Col sm>
-        <Form.Check
-          inline
-          checked={filters.type.Creature}
-          label="Creature"
-          id='Creature'
-          onChange={(e) => handleFilters(e.target.id, e.target.checked)}
-        />
-      </Col>
-      <Col sm>
-        <Form.Check
-            inline
-            checked={filters.type.Planeswalker}
-            label="Planeswalker"
-            id='Planeswalker'
-            onChange={(e) => handleFilters(e.target.id, e.target.checked)}
-        />
-      </Col>
-      <Col sm>
-        <Form.Check
-            inline
-            checked={filters.type.Instant}
-            label="Instant"
-            id='Instant'
-            onChange={(e) => handleFilters(e.target.id, e.target.checked)}
-        />
-      </Col>
-      <Col sm>
-        <Form.Check
-            inline
-            checked={filters.type.Sorcery}
-            label="Sorcery"
-            id='Sorcery'
-            onChange={(e) => handleFilters(e.target.id, e.target.checked)}
-        />
-      </Col>
-      <Col sm={{ padding: 5 }}>
-        <Form.Check
-            inline
-            checked={filters.type.Enchantment}
-            label="Enchantment"
-            id='Enchantment'
-            onChange={(e) => handleFilters(e.target.id, e.target.checked)}
-        />
-      </Col>
-      <Col sm={{ padding: 5 }}>
-        <Form.Check
-            inline
-            checked={filters.type.Artifact}
-            label="Artifact"
-            id='Artifact'
-            onChange={(e) => handleFilters(e.target.id, e.target.checked)}
-        />
-      </Col>
-      <Col sm={{ padding: 5 }}>
-        <Form.Check
-            inline
-            checked={filters.type.Land}
-            label="Land"
-            id='Land'
-            onChange={(e) => handleFilters(e.target.id, e.target.checked)}
-        />
-      </Col>
-    </Form.Group>
+    <DropdownButton id="dropdown-type" title="Type" onSelect={(e) => handleFilters(e)}>
+      <Form.Group id='type'>
+        <Dropdown.Item eventKey="Creature" active={filters.type.Creature}>Creature</Dropdown.Item>
+        <Dropdown.Item eventKey="Planeswalker" active={filters.type.Planeswalker}>Planeswalker</Dropdown.Item>
+        <Dropdown.Item eventKey="Instant" active={filters.type.Instant}>Instant</Dropdown.Item>
+        <Dropdown.Item eventKey="Sorcery" active={filters.type.Sorcery}>Sorcery</Dropdown.Item>
+        <Dropdown.Item eventKey="Enchantment" active={filters.type.Enchantment}>Enchantment</Dropdown.Item>
+        <Dropdown.Item eventKey="Atifact" active={filters.type.Artifact}>Artifact</Dropdown.Item>
+        <Dropdown.Item eventKey="Land" active={filters.type.Land}>Land</Dropdown.Item>
+      </Form.Group>
+    </DropdownButton>
   )
 }
