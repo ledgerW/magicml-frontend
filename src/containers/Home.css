@@ -39,6 +39,7 @@
 
 .HomeSearchResults {
   margin: 2vh 12vw 0vh 12vw;
+  padding: 2vh 0vw 0vh 0vw;
   background: rgba(255, 255, 255, 0);
 }
 
@@ -108,7 +109,7 @@ input[type="text"] {
 }
 
 .ResultsFilters {
-  padding: 5vh 0vw 2vh 0vw;
+  padding: 5vh 0vw 5vh 0vw;
 }
 
 .Filters {
@@ -139,15 +140,6 @@ input[type="text"] {
   box-shadow: none !important;
 }
 
-/*
-.Filters .form-group {
-  background: var(--dark-blue) !important;
-  border: var(--dark-blue) !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-*/
-
 .dropdown-menu {
   background: var(--light-dark) !important;
   color: var(--light-grey);
@@ -170,7 +162,7 @@ input[type="text"] {
 }
 
 .SearchResults {
-  padding: 2vh 0vw 0vh 0vw;
+  padding: 0vh 0vw 0vh 0vw;
   background: rgba(255, 255, 255, 0);
 }
 

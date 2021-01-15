@@ -14,7 +14,7 @@ export default function TypeFilter(props) {
   const { handleFilters } = props;
 
   return (
-    <DropdownButton id="dropdown-type" title="Type" onSelect={(e) => handleFilters(e)}>
+    <DropdownButton id="dropdown-type" title="Type" size="lg" onSelect={(e) => handleFilters(e)}>
       <Form.Group id='type'>
         <Dropdown.Item eventKey="Creature" active={filters.type.Creature}>Creature</Dropdown.Item>
         <Dropdown.Item eventKey="Planeswalker" active={filters.type.Planeswalker}>Planeswalker</Dropdown.Item>

@@ -14,7 +14,7 @@ export default function ManaCostFilter(props) {
   const { handleFilters } = props;
 
   return (
-    <DropdownButton id="dropdown-manaCost" title="Mana Cost" onSelect={(e) => handleFilters(e)}>
+    <DropdownButton id="dropdown-manaCost" title="Mana Cost" size="lg" onSelect={(e) => handleFilters(e)}>
       <Form.Group id='manaCost'>
         <Dropdown.Item eventKey="lt1" active={filters.manaCost.lt1}>0</Dropdown.Item>
         <Dropdown.Item eventKey="1" active={filters.manaCost['1']}>1</Dropdown.Item>

@@ -14,7 +14,7 @@ export default function ColorFilter(props) {
   const { handleFilters } = props;
 
   return (
-    <DropdownButton id="dropdown-color" title="Colors" onSelect={(e) => handleFilters(e)}>
+    <DropdownButton id="dropdown-color" title="Colors" size="lg" onSelect={(e) => handleFilters(e)}>
       <Form.Group id='color'>
         <Dropdown.Item eventKey="W" active={filters.colors.W}>White</Dropdown.Item>
         <Dropdown.Item eventKey="B" active={filters.colors.B}>Black</Dropdown.Item>

@@ -14,7 +14,7 @@ export default function FormatFilter(props) {
   const { handleFilters } = props;
 
   return (
-    <DropdownButton id="dropdown-format" title="Format" onSelect={(e) => handleFilters(e)}>
+    <DropdownButton id="dropdown-format" title="Format" size="lg" onSelect={(e) => handleFilters(e)}>
       <Form.Group id='format'>
         <Dropdown.Item eventKey="standard" active={filters.format.standard}>Standard</Dropdown.Item>
         <Dropdown.Item eventKey="historic" active={filters.format.historic}>Historic</Dropdown.Item>
