@@ -6,7 +6,7 @@ import "../containers/Home.css";
 
 export default function CardDisplay(props) {
   const target = useRef(null);
-  let { name, image_urls } = props;
+  let { name, image_urls, cardOverlay } = props;
   var src = '';
   
   try {
@@ -24,16 +24,30 @@ export default function CardDisplay(props) {
   };
 
   return (
-    <OverlayTrigger
-      target={target.current}
-      placement="auto-start"
-      overlay={renderHover(src)}
-    >
-      <Card border="light" className="Card text-center">
-        <Card.Link href={`/results/${name}`}>
-          <Card.Img variant="top" src={ src } />
-        </Card.Link>
-      </Card>
-    </OverlayTrigger>
+    <div>
+      {cardOverlay
+        ? (
+          <OverlayTrigger
+            target={target.current}
+            placement="auto-start"
+            overlay={renderHover(src)}
+          >
+            <Card border="light" className="Card text-center">
+              <Card.Link href={`/results/${name}`}>
+                <Card.Img variant="top" src={ src } />
+              </Card.Link>
+            </Card>
+          </OverlayTrigger>
+          )
+        : (
+          <Card border="light" className="Card text-center">
+            <Card.Link href={`/results/${name}`}>
+              <Card.Img variant="top" src={ src } />
+            </Card.Link>
+          </Card>
+          )
+      }
+    </div>
+    
   )
 }

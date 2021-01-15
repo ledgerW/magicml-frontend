@@ -64,6 +64,7 @@ export default function Home() {
             isLoading={isLoading}
             simCards={scryfallCards}
             nCardsPerRow={nCardsPerRow}
+            cardOverlay={false}
           />
         </div>
       </div>

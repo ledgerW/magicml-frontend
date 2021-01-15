@@ -110,7 +110,11 @@ export default function Results() {
         <Col sm={3}>
         {searchedCard && (
           <div className="sticky-top">
-            <CardDisplay name={searchedCard.name} image_urls={searchedCard.image_urls}/>
+            <CardDisplay
+              name={searchedCard.name}
+              image_urls={searchedCard.image_urls}
+              cardOverlay={false}
+            />
           </div>
         )}
         </Col>
@@ -119,6 +123,7 @@ export default function Results() {
           isLoading={isLoading}
           simCards={simCards}
           nCardsPerRow={nCardsPerRow}
+          cardOverlay={true}
         />
         </Col>
       </Row>

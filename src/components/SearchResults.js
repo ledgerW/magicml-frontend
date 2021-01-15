@@ -6,7 +6,7 @@ import "../containers/Home.css";
 
 
 export default function SearchResults(props) {
-  const { isLoading, simCards, nCardsPerRow } = props
+  const { isLoading, simCards, nCardsPerRow, cardOverlay } = props
 
   function renderCardsList(cards, nCardsPerRow) {
     if (cards.length > 0) {
@@ -37,7 +37,7 @@ export default function SearchResults(props) {
           <CardGroup className="justify-content-md-center">
             {card.map(({ name, image_urls }) => (
               <Col md={3}>
-                <CardDisplay name={name} image_urls={image_urls}/>
+                <CardDisplay name={name} image_urls={image_urls} cardOverlay={cardOverlay}/>
               </Col>
             ))}
           </CardGroup>
