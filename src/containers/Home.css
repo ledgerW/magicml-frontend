@@ -38,12 +38,12 @@
 }
 
 .HomeSearchResults {
-  margin: 2vh 7vw 0vh 7vw;
+  margin: 2vh 12vw 0vh 12vw;
   background: rgba(255, 255, 255, 0);
 }
 
 .HomePageStats {
-
+  margin: 0%;
 }
 
 .BrandHeader {
@@ -127,4 +127,9 @@ input[type="text"] {
   padding: 5px 0px 5px 0px;
   background: rgba(255, 255, 255, 0);
   border :rgba(255, 255, 255, 0);
+}
+
+.CardOverlay {
+  border :rgba(255, 255, 255, 0);
+  width: 18rem;
 }
