@@ -24,7 +24,7 @@ export default function SearchBar(props) {
         <FormControl
           className="SearchBar"
           value={card}
-          placeholder="any part of card name or card text..."
+          placeholder="any part of card name..."
           onChange={(e) => setCard(e.target.value)}
         />
       </InputGroup>

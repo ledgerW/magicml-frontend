@@ -7,6 +7,7 @@ import "../containers/Home.css";
 export default function CardDisplay(props) {
   const target = useRef(null);
   let { name, image_urls, cardOverlay } = props;
+  console.log(name.replace('//','__'));
   var src = '';
   
   try {
@@ -33,7 +34,7 @@ export default function CardDisplay(props) {
             overlay={renderHover(src)}
           >
             <Card border="light" className="Card text-center">
-              <Card.Link href={`/results/${name}`}>
+              <Card.Link href={`/similarity/${name.replace('//','__')}`}>
                 <Card.Img variant="top" src={ src } />
               </Card.Link>
             </Card>
@@ -41,7 +42,7 @@ export default function CardDisplay(props) {
           )
         : (
           <Card border="light" className="Card text-center">
-            <Card.Link href={`/results/${name}`}>
+            <Card.Link href={`/similarity/${name.replace('//','__')}`}>
               <Card.Img variant="top" src={ src } />
             </Card.Link>
           </Card>

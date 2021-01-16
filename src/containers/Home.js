@@ -27,8 +27,6 @@ export default function Home() {
   async function handleSubmit(event) {
     event.preventDefault();
   
-    setIsLoading(true);
-  
     try {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
@@ -42,13 +40,14 @@ export default function Home() {
     }
   }
 
+
   return (
     <div>
       <div class="HomePageMain">
         <Header></Header>
         <div class="HomePageTitle">
           <h2>Find cards with similar functionality</h2>
-          <h5>Semantic search powered by Natural Language Processing</h5>
+          <h5><b>Magic: The Gathering</b> card search powered by Natural Language Processing</h5>
         </div>
         <div className="HomeSearchBar container">
           <SearchBar

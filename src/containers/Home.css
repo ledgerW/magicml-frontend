@@ -84,11 +84,11 @@ footer {
 }
 
 footer .content {
-  padding: 0vh 0vw 3vh 0vw;
+  padding: 0vh 10vw 3vh 10vw;
 }
 
 footer .legal {
-  padding: 1vh 5vw 0vh 5vw;
+  padding: 1vh 10vw 0vh 10vw;
   font-size: x-small;
   color: var(--light-grey);
 }
@@ -104,7 +104,30 @@ input[type="text"] {
   padding: 0vh 0vw 2vh 0vw;
   margin: 0;
 
+  /*
   background-image: linear-gradient(to top, var(--dark-dark), var(--light-dark));
+  text-align: center;
+  */
+
+  
+  background: url("../assets/happy_win.png") #3c8f8b;
+  background-size: auto;
+  background-position: center top;
+  background-blend-mode: overlay;
+  text-align: center;
+}
+
+.BasicPage {
+  position: static;
+  min-height: 100vh;
+
+  padding: 0vh 0vw 2vh 0vw;
+  margin: 0;
+
+  background: url("../assets/happy_win.png") #3c8d89;
+  background-size: auto;
+  background-position: center top;
+  background-blend-mode: overlay;
   text-align: center;
 }
 
@@ -175,4 +198,5 @@ input[type="text"] {
 .CardOverlay {
   border :rgba(255, 255, 255, 0);
   width: 18rem;
+  z-index: 10000;
 }

@@ -2,6 +2,8 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./containers/Home";
 import Results from "./containers/Results";
+import About from "./containers/About";
+import FAQ from "./containers/FAQ";
 
 export default function Routes() {
   return (
@@ -9,8 +11,14 @@ export default function Routes() {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/results/:nameParam">
+      <Route path="/similarity/:nameParam">
         <Results />
+      </Route>
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/faq">
+        <FAQ />
       </Route>
     </Switch>
   );
