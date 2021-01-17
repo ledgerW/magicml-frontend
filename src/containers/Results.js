@@ -23,6 +23,7 @@ export default function Results() {
 
   const {
     isLoading, setIsLoading,
+    showAlert, setShowAlert,
     formCard, setFormCard,
     scryfallCards, setScryfallCards,
     searchedCard, setSearchedCard,
@@ -59,7 +60,7 @@ export default function Results() {
         setFilteredSimCards(resSimCards);
         setIsLoading(false);
       } else {
-        onError("Sorry, we don't have similarities for that card yet.")
+        setShowAlert(true);
         setIsLoading(false);
       }
     }
@@ -78,6 +79,7 @@ export default function Results() {
   async function handleSubmit(event) {
     event.preventDefault();
   
+    setShowAlert(false);
     setIsLoading(true);
   
     try {
@@ -88,23 +90,28 @@ export default function Results() {
       setSimCards([]);
       setIsLoading(false);
     } catch (e) {
-      onError(e);
+      setShowAlert(true);
+      setSimCards([]);
       setIsLoading(false);
     }
   }
 
   // Conditional Renders
-  function renderScryfallCards(isLoading, scryfallCards, nCardsPerRow) {
+  function renderScryfallCards(isLoading, scryfallCards, nCardsPerRow, showAlert, setShowAlert) {
     return (
-        <SearchResults
-          isLoading={isLoading}
-          simCards={scryfallCards}
-          nCardsPerRow={nCardsPerRow}
-        />
-      )
-    }
+      <SearchResults
+        isLoading={isLoading}
+        simCards={scryfallCards}
+        nCardsPerRow={nCardsPerRow}
+        cardOverlay={false}
+        showAlert={showAlert}
+        setShowAlert={setShowAlert}
+        alertType={"No Cards Found"}
+      />
+    )
+  }
 
-  function renderSimilarityCards(searchedCard, isLoading, simCards, nCardsPerRow) {
+  function renderSimilarityCards(searchedCard, isLoading, simCards, nCardsPerRow, showAlert, setShowAlert) {
     return (
       <Row>
         <Col sm={3}>
@@ -119,12 +126,15 @@ export default function Results() {
         )}
         </Col>
         <Col sm={9}>
-        <SearchResults
-          isLoading={isLoading}
-          simCards={simCards}
-          nCardsPerRow={nCardsPerRow}
-          cardOverlay={true}
-        />
+          <SearchResults
+            isLoading={isLoading}
+            simCards={simCards}
+            nCardsPerRow={nCardsPerRow}
+            cardOverlay={true}
+            showAlert={showAlert}
+            setShowAlert={setShowAlert}
+            alertType={"No similarities for that card yet :("}
+          />
         </Col>
       </Row>
     )
@@ -132,24 +142,26 @@ export default function Results() {
 
 
   return (
-    <div className="ResultsPage">
-      <Header>
-        <SearchBar
-          handleSubmit={handleSubmit}
-          isLoading={isLoading}
-          validateForm={validateForm}
-          card={formCard}
-          setCard={setFormCard}
-        />
-      </Header>
-      <div className="container">
-        <div className="ResultsFilters">
-          <Filters></Filters>
+    <div>
+      <div className="ResultsPage">
+        <Header>
+          <SearchBar
+            handleSubmit={handleSubmit}
+            isLoading={isLoading}
+            validateForm={validateForm}
+            card={formCard}
+            setCard={setFormCard}
+          />
+        </Header>
+        <div className="container">
+          <div className="ResultsFilters">
+            <Filters></Filters>
+          </div>
+          {simCards.length > 0
+            ? renderSimilarityCards(searchedCard, isLoading, filteredSimCards, nCardsPerRow, showAlert, setShowAlert)
+            : renderScryfallCards(isLoading, scryfallCards, nCardsPerRow, showAlert, setShowAlert)
+          }
         </div>
-        {simCards.length > 0
-          ? renderSimilarityCards(searchedCard, isLoading, filteredSimCards, nCardsPerRow)
-          : renderScryfallCards(isLoading, scryfallCards, nCardsPerRow)
-        }
       </div>
       <Footer></Footer>
     </div>

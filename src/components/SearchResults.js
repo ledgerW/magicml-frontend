@@ -1,12 +1,20 @@
-import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
 import CardGroup from "react-bootstrap/CardGroup";
 import CardDisplay from "./CardDisplay";
+import AlertMessage from "./AlertMessage";
 import "../containers/Home.css";
 
 
 export default function SearchResults(props) {
-  const { isLoading, simCards, nCardsPerRow, cardOverlay } = props
+  const { 
+    isLoading,
+    simCards,
+    nCardsPerRow,
+    cardOverlay,
+    showAlert,
+    setShowAlert,
+    alertType
+  } = props
 
   function renderCardsList(cards, nCardsPerRow) {
     if (cards.length > 0) {
@@ -47,8 +55,13 @@ export default function SearchResults(props) {
   }
 
   return (
-    <div className="SearchResults">
+    showAlert
+    ? <AlertMessage
+        alertType={alertType}
+        setShowAlert={setShowAlert}
+      />
+    : <div className="SearchResults">
         {!isLoading && renderCardsList(simCards, nCardsPerRow)}
-    </div>
+      </div>
   )
 }

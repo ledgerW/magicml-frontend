@@ -6,12 +6,6 @@
   --dark-blue: #45A29E;
 }
 
-.bg-header {
-  /*background-image: linear-gradient(to bottom right, #CF3A28, #4b14949f);*/
-  background-color: var(--dark-dark);
-}
-
-
 body {
   margin: 0;
 }

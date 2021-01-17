@@ -7,6 +7,7 @@ import "./App.css";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [formCard, setFormCard] = useState("");
   const [scryfallCards, setScryfallCards] = useState([]);
   const [searchedCard, setSearchedCard] = useState(null);
@@ -52,6 +53,7 @@ function App() {
 
   const allContext = {
     isLoading, setIsLoading,
+    showAlert, setShowAlert,
     formCard, setFormCard,
     scryfallCards, setScryfallCards,
     searchedCard, setSearchedCard,
