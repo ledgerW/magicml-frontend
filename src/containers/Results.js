@@ -19,7 +19,7 @@ import "./Home.css";
 
 export default function Results() {
   const nCardsPerRow = 4;
-  const nCardResults = 20;
+  const nCardResults = 25;
 
   const {
     isLoading, setIsLoading,
