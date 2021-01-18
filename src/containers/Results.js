@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
+import {Helmet} from "react-helmet";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -18,6 +19,11 @@ import "./Home.css";
 
 
 export default function Results() {
+  let meta = {
+    'title': 'MagicML',
+    'keywords': "Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards",
+    'description': "Magic: The Gathering card search powered by Natural Language Processing"
+  };
   const nCardsPerRow = 4;
   const nCardResults = 25;
 
@@ -51,7 +57,6 @@ export default function Results() {
   async function newSimSearch() {
     try {
       const res = await search(nameParam);
-      console.log(res);
       if (res.cards.length > 0) {
         let resSearchCard = res.cards[0]
         let resSimCards = res.cards[0].similarities.slice(0, nCardResults);
@@ -143,6 +148,11 @@ export default function Results() {
 
   return (
     <div>
+      <Helmet>
+          <title>{meta.title.concat(" - ", nameParam)}</title>
+          <meta name="keywords" content={meta.keywords.concat(", ", nameParam)}/>
+          <meta name="description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}/>
+      </Helmet>
       <div className="ResultsPage">
         <Header>
           <SearchBar

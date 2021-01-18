@@ -1,6 +1,6 @@
 {
   "short_name": "MagicML",
-  "name": "MagicML: Semantic Similarity Search for MTG",
+  "name": "Magic: The Gathering card search powered by Natural Language Processing",
   "icons": [
     {
       "src": "favicon.ico",

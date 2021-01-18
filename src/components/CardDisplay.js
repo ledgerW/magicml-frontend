@@ -7,7 +7,6 @@ import "../containers/Home.css";
 export default function CardDisplay(props) {
   const target = useRef(null);
   let { name, image_urls, cardOverlay } = props;
-  console.log(name.replace('//','__'));
   var src = '';
   
   try {
