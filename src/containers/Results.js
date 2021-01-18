@@ -152,6 +152,7 @@ export default function Results() {
           <title>{meta.title.concat(" - ", nameParam)}</title>
           <meta name="keywords" content={meta.keywords.concat(", ", nameParam)}/>
           <meta name="description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}/>
+          <link rel="canonical" href="https://magicml.com/similarity" />
       </Helmet>
       <div className="ResultsPage">
         <Header>

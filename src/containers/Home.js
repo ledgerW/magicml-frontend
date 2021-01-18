@@ -58,6 +58,7 @@ export default function Home() {
           <title>{meta.title}</title>
           <meta name="keywords" content={meta.keywords}/>
           <meta name="description" content={meta.description}/>
+          <link rel="canonical" href="https://magicml.com" />
       </Helmet>
       <div class="HomePageMain">
         <Header></Header>

@@ -19,6 +19,7 @@ export default function About() {
           <title>{meta.title}</title>
           <meta name="keywords" content={meta.keywords}/>
           <meta name="description" content={meta.description}/>
+          <link rel="canonical" href="https://magicml.com/about" />
       </Helmet>
       <div className="BasicPage">
         <Header>
