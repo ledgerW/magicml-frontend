@@ -70,7 +70,6 @@ export default function Results() {
       }
     }
     catch(e) {
-      onError(e);
       setIsLoading(false);
     }
   }

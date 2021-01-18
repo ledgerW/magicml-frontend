@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AppContext } from "./libs/contextLib";
 import Routes from "./Routes";
+import Nav from "react-bootstrap/Nav";
 import "./index.css";
 import "./App.css";
 
@@ -67,6 +68,12 @@ function App() {
       <AppContext.Provider value={ allContext }>
         <Routes />
       </AppContext.Provider>
+      <div className="SiteMap">
+        <Nav>
+          <Nav.Link href="/similarity/Goblin Assault Team">About</Nav.Link>
+          <Nav.Link href="/similarity/Essence Capture">FAQ</Nav.Link>
+        </Nav>
+      </div>
     </div>
   );
 }

@@ -11,6 +11,9 @@ export default function Routes() {
       <Route exact path="/">
         <Home/>
       </Route>
+      <Route exact path="/similarity">
+        <Results/>
+      </Route>
       <Route path="/similarity/:nameParam">
         <Results/>
       </Route>
