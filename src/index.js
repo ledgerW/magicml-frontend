@@ -21,27 +21,6 @@ Amplify.configure({
 });
 
 
-
-const rootElement = document.getElementById("root");
-if (rootElement.hasChildNodes()) {
-  ReactDOM.hydrate(
-    <React.StrictMode>
-      <Router>
-        <App />
-      </Router>
-    </React.StrictMode>,
-  rootElement);
-} else {
-  ReactDOM.render(
-    <React.StrictMode>
-      <Router>
-        <App />
-      </Router>
-    </React.StrictMode>,
-  rootElement);
-}
-
-/*
 ReactDOM.render(
   <React.StrictMode>
     <Router>
@@ -50,7 +29,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-*/
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
