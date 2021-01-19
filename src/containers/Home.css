@@ -198,3 +198,11 @@ input[type="text"] {
   width: 18rem;
   z-index: 10000;
 }
+
+.BasicText {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1.25em;
+  text-align: left;
+  padding: 5vh 0vw 5vh 0vw;
+}

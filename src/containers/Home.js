@@ -42,6 +42,10 @@ export default function Home() {
       var { data } = res.data;
       // only show cards in Arena
       data = data.filter(card => card.hasOwnProperty('arena_id'));
+      
+      if (data.length == 0) {
+        setShowAlert(true);
+      }
 
       setScryfallCards(data)
       setIsLoading(false);
