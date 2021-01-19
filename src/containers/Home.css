@@ -79,6 +79,10 @@
   color: var(--dark-blue);
 }
 
+.SiteMap {
+  display: none;
+}
+
 footer {
   padding: 5vh 5vw 2vh 5vw;
   text-align: center;
