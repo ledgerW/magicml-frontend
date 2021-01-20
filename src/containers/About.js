@@ -29,7 +29,7 @@ export default function About() {
         </div>
         <div className="BasicText">
           <div className="container">
-            <p>Hi, I'm Ledger, the creator of MagicML.</p>
+            <p>Hi, I'm Ledger, the maker of MagicML.</p>
             <p>
               I'm an ML Engineer by day, <b>not</b> a front-end developer, so please excuse the lack of aesthetic and UX.
               They'll get better as time goes by, hopefully.  Actually, I'm not even that great of an engineer either, so just 
@@ -37,8 +37,11 @@ export default function About() {
             </p>
             <p>
               MagicML is something fun for me to do in my spare time, and
-              because I like playing Magic. Additional improvements and features will be an ongoing process, but
-              I also have kids and a day job and other interests, so... :).  To all 9 of
+              because I like playing Magic. Additional improvements and features are on the way, but
+              I also have kids and a wife and a day job and other interests, so... :).
+            </p>
+            <p>
+              To all 9 of
               the active users, feel free to contact me (<b>ledger@magicml.com</b> or <b>@magicml2</b>) with feature requests,
               bugs, or screenshots of your craziest Arena win (hey, maybe that'll be the next feature
               - the badass-arena-win-screenshot-wall) (man, remember when the facebook feed was called your wall?).
@@ -51,10 +54,9 @@ export default function About() {
               distances between card vectors as a measure of similarity. It's not perfect, but I hope you'll agree it's not bad.
             </p>
             <p>
-              Lastly, MagicML is currently only populated with cards in Arena.  The rest of the cards will be added soon.
+              Lastly, MagicML is currently only populated with cards in MTG Arena.  The rest of the cards will be added soon.
             </p>
-          </div>
-          
+          </div> 
         </div>
       </div>
       <Footer></Footer>

@@ -206,3 +206,48 @@ input[type="text"] {
   text-align: left;
   padding: 5vh 0vw 5vh 0vw;
 }
+
+.FAQ .card {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1.25em;
+  text-align: left;
+  border: none;
+  padding: 1vh 0vw 2vh 1vw;
+}
+
+.FAQ button {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1em;
+  text-align: left;
+  border: none;
+  text-decoration: none;
+}
+
+.FAQ button:focus {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1em;
+  text-align: left;
+  border: none;
+  text-decoration: none;
+}
+
+.FAQ button::after {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1em;
+  text-align: left;
+  border: none;
+  text-decoration: none;
+}
+
+.FAQ button:hover {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1em;
+  text-align: left;
+  border: none;
+  text-decoration: none;
+}

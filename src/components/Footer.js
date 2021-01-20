@@ -10,10 +10,16 @@ export default function Footer() {
     <footer>
       <Row className="content">
         <Col>
-          <p>By: Ledger West  (ArenaID: lw2134)</p>
+          <p>By: Ledger West</p>
+        </Col>
+        <Col>
+          <p>ArenaID: lw2134#69223</p>
         </Col>
         <Col>
           ledger@magicml.com
+        </Col>
+        <Col>
+          @magicml2
         </Col>
       </Row>
       <Row>
