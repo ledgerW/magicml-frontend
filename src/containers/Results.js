@@ -22,7 +22,7 @@ export default function Results() {
   let meta = {
     'title': 'MagicML',
     'keywords': "Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards",
-    'description': "Magic: The Gathering card search powered by Natural Language Processing"
+    'description': "NLP-powered MTG card similarities"
   };
   const nCardsPerRow = 4;
   const nCardResults = 25;
@@ -157,6 +157,11 @@ export default function Results() {
           <meta name="keywords" content={meta.keywords.concat(", ", nameParam)}/>
           <meta name="description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}/>
           <link rel="canonical" href="https://magicml.com/similarity" />
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:site" content="@magicml2" />
+          <meta name="twitter:title" content={meta.title.concat(" - ", nameParam)} />
+          <meta name="twitter:description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description} />
+          <meta name="twitter:image" content={searchedCard.image_urls.normal} />
       </Helmet>
       <div className="ResultsPage">
         <Header>
