@@ -161,7 +161,7 @@ export default function Results() {
           <meta name="twitter:site" content="@magicml2" />
           <meta name="twitter:title" content={meta.title.concat(" - ", nameParam)} />
           <meta name="twitter:description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description} />
-          <meta name="twitter:image" content={searchedCard.image_urls.normal} />
+          <meta name="twitter:image" content={searchedCard ? searchedCard.image_urls.normal : "/logo512.png"} />
       </Helmet>
       <div className="ResultsPage">
         <Header>
