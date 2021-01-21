@@ -63,7 +63,8 @@ export default function Home() {
           <meta name="keywords" content={meta.keywords}/>
           <meta name="description" content={meta.description}/>
           <link rel="canonical" href="https://magicml.com" />
-          <meta name="twitter:card" content="summary" />
+          <meta property="og:type" content="website" />
+          <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@magicml2" />
           <meta name="twitter:title" content={meta.title} />
           <meta name="twitter:description" content={meta.description} />

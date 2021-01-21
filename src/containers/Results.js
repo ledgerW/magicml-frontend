@@ -157,7 +157,8 @@ export default function Results() {
           <meta name="keywords" content={meta.keywords.concat(", ", nameParam)}/>
           <meta name="description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}/>
           <link rel="canonical" href="https://magicml.com/similarity" />
-          <meta name="twitter:card" content="summary" />
+          <meta property="og:type" content="website" />
+          <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@magicml2" />
           <meta name="twitter:title" content={meta.title.concat(" - ", nameParam)} />
           <meta name="twitter:description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description} />
