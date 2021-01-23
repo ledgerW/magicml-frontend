@@ -63,12 +63,12 @@ export default function Home() {
           <meta name="keywords" content={meta.keywords}/>
           <meta name="description" content={meta.description}/>
           <link rel="canonical" href="https://magicml.com" />
-          <meta property="og:type" content="website" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:site" content="@magicml2" />
-          <meta name="twitter:title" content={meta.title} />
-          <meta name="twitter:description" content={meta.description} />
-          <meta name="twitter:image" content="/logo512.png" />
+          <meta property="og:type" content="website"></meta>
+          <meta name="twitter:card" content="summary_large_image"></meta>
+          <meta name="twitter:site" content="@magicml2"></meta>
+          <meta name="twitter:title" content={meta.title}></meta>
+          <meta name="twitter:description" content={meta.description}></meta>
+          <meta name="twitter:image" content="/logo512.png"></meta>
       </Helmet>
       <div class="HomePageMain">
         <Header></Header>

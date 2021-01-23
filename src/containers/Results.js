@@ -157,12 +157,12 @@ export default function Results() {
           <meta name="keywords" content={meta.keywords.concat(", ", nameParam)}/>
           <meta name="description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}/>
           <link rel="canonical" href="https://magicml.com/similarity" />
-          <meta property="og:type" content="website" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:site" content="@magicml2" />
-          <meta name="twitter:title" content={meta.title.concat(" - ", nameParam)} />
-          <meta name="twitter:description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description} />
-          <meta name="twitter:image" content={searchedCard ? searchedCard.image_urls.normal : "/logo512.png"} />
+          <meta property="og:type" content="website"></meta>
+          <meta name="twitter:card" content="summary_large_image"></meta>
+          <meta name="twitter:site" content="@magicml2"></meta>
+          <meta name="twitter:title" content={meta.title.concat(" - ", nameParam)}></meta>
+          <meta name="twitter:description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}></meta>
+          <meta name="twitter:image" content={searchedCard ? searchedCard.image_urls.normal : "/logo512.png"}></meta>
       </Helmet>
       <div className="ResultsPage">
         <Header>
