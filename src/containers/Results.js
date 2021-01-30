@@ -15,6 +15,7 @@ import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import { search } from "../libs/similarityLib";
 import { applyFilters } from "../libs/filtersLib";
+import { supportedSets } from "../libs/magicLib";
 import "./Home.css";
 
 
@@ -60,6 +61,7 @@ export default function Results() {
       if (res.cards.length > 0) {
         let resSearchCard = res.cards[0]
         let resSimCards = res.cards[0].similarities.slice(0, nCardResults);
+        console.log(resSimCards);
         setSearchedCard(resSearchCard);
         setSimCards(resSimCards);
         setFilteredSimCards(resSimCards);
@@ -89,11 +91,20 @@ export default function Results() {
     try {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
-      data = data.filter(card => card.hasOwnProperty('arena_id'));
+      
+      console.log(data);
+
+      data = data.map(card => {
+        if (supportedSets.some(s => card.set_name.includes(s))) {
+          return card
+        }
+      }).filter(el => el != null);
 
       if (data.length == 0) {
         setShowAlert(true);
       }
+      
+      console.log(data);
       
       setScryfallCards(data);
       setSimCards([]);
