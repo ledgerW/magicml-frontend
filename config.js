@@ -8,12 +8,12 @@ const dev = {
 const prod = {
   apiGateway: {
     REGION: 'us-east-1',
-    URL: "6igea4twhh.execute-api.us-east-1.amazonaws.com/prod",
+    URL: "https://6igea4twhh.execute-api.us-east-1.amazonaws.com/prod",
   }
 };
 
 // Default to dev if not set
-const config = process.env.STAGE === 'prod'
+const config = process.env.REACT_APP_STAGE === 'prod'
   ? prod
   : dev;
 
