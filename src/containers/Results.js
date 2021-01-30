@@ -26,7 +26,7 @@ export default function Results() {
     'description': "NLP-powered MTG card similarities"
   };
   const nCardsPerRow = 4;
-  const nCardResults = 25;
+  const nCardResults = 30;
 
   const {
     isLoading, setIsLoading,
@@ -61,7 +61,6 @@ export default function Results() {
       if (res.cards.length > 0) {
         let resSearchCard = res.cards[0]
         let resSimCards = res.cards[0].similarities.slice(0, nCardResults);
-        console.log(resSimCards);
         setSearchedCard(resSearchCard);
         setSimCards(resSimCards);
         setFilteredSimCards(resSimCards);
@@ -91,8 +90,6 @@ export default function Results() {
     try {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
-      
-      console.log(data);
 
       data = data.map(card => {
         if (supportedSets.some(s => card.set_name.includes(s))) {
@@ -103,8 +100,6 @@ export default function Results() {
       if (data.length == 0) {
         setShowAlert(true);
       }
-      
-      console.log(data);
       
       setScryfallCards(data);
       setSimCards([]);
