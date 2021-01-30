@@ -10,8 +10,6 @@ import FormatFilter from "./filters/FormatFilter";
 import { onError } from "../libs/errorLib";
 import { useAppContext } from "../libs/contextLib";
 
-import "../containers/Home.css";
-
 
 export default function Filters() {
   const {

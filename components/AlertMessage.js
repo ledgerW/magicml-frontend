@@ -1,6 +1,5 @@
 import React from "react";
 import Alert from "react-bootstrap/Alert";
-import "../containers/Home.css";
 
 export default function AlertMessage(props) {
   let { alertType, setShowAlert } = props;

@@ -2,7 +2,6 @@ import Col from 'react-bootstrap/Col';
 import CardGroup from "react-bootstrap/CardGroup";
 import CardDisplay from "./CardDisplay";
 import AlertMessage from "./AlertMessage";
-import "../containers/Home.css";
 
 
 export default function SearchResults(props) {

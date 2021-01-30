@@ -2,7 +2,6 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import LoaderButton from "../components/LoaderButton";
-import "../containers/Home.css";
 
 
 export default function SearchBar(props) {

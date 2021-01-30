@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
-import {Helmet} from "react-helmet";
+import Head from 'next/head'
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -15,7 +14,6 @@ import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import { search } from "../libs/similarityLib";
 import { applyFilters } from "../libs/filtersLib";
-import "./Home.css";
 
 
 export default function Results() {
@@ -38,7 +36,7 @@ export default function Results() {
     filters
   } = useAppContext();
 
-  const { nameParam } = useParams();
+  //const { nameParam } = useParams();
 
 
   useEffect(() => {
@@ -52,35 +50,13 @@ export default function Results() {
     applyFilters(filters, simCards, nCardResults, setFilteredSimCards, setIsLoading, onError);
   }, [filters]);
 
-  
-  // Similarity Search
-  async function newSimSearch() {
-    try {
-      const res = await search(nameParam);
-      if (res.cards.length > 0) {
-        let resSearchCard = res.cards[0]
-        let resSimCards = res.cards[0].similarities.slice(0, nCardResults);
-        setSearchedCard(resSearchCard);
-        setSimCards(resSimCards);
-        setFilteredSimCards(resSimCards);
-        setIsLoading(false);
-      } else {
-        setShowAlert(true);
-        setIsLoading(false);
-      }
-    }
-    catch(e) {
-      setIsLoading(false);
-    }
-  }
-
 
   // Scryfall Search
   function validateForm() {
     return formCard.length > 0;
   }
 
-  async function handleSubmit(event) {
+  async function scryfallSubmit(event) {
     event.preventDefault();
   
     setShowAlert(false);
@@ -152,7 +128,7 @@ export default function Results() {
 
   return (
     <div>
-      <Helmet>
+      <Head>
           <title>{meta.title.concat(" - ", nameParam)}</title>
           <meta name="keywords" content={meta.keywords.concat(", ", nameParam)}/>
           <meta name="description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}/>
@@ -163,11 +139,11 @@ export default function Results() {
           <meta name="twitter:title" content={meta.title.concat(" - ", nameParam)}></meta>
           <meta name="twitter:description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}></meta>
           <meta name="twitter:image" content={searchedCard ? searchedCard.image_urls.normal : "/logo512.png"}></meta>
-      </Helmet>
+      </Head>
       <div className="ResultsPage">
         <Header>
           <SearchBar
-            handleSubmit={handleSubmit}
+            handleSubmit={scryfallSubmit}
             isLoading={isLoading}
             validateForm={validateForm}
             card={formCard}
@@ -187,4 +163,68 @@ export default function Results() {
       <Footer></Footer>
     </div>
   );
+}
+
+export function getAllCardIds() {
+  // Returns an array that looks like this:
+  // [
+  //   {
+  //     params: {
+  //       id: 'ssg-ssr'
+  //     }
+  //   },
+  //   {
+  //     params: {
+  //       id: 'pre-rendering'
+  //     }
+  //   }
+  // ]
+  return cardNames.map(cardName => {
+    return {
+      params: {
+        id: cardName.replace('//','__')
+      }
+    }
+  })
+}
+
+// Similarity Search
+async function newSimSearch() {
+  try {
+    const res = await search(nameParam);
+    if (res.cards.length > 0) {
+      let resSearchCard = res.cards[0]
+      let resSimCards = res.cards[0].similarities.slice(0, nCardResults);
+      setSearchedCard(resSearchCard);
+      setSimCards(resSimCards);
+      setFilteredSimCards(resSimCards);
+      setIsLoading(false);
+    } else {
+      setShowAlert(true);
+      setIsLoading(false);
+    }
+  }
+  catch(e) {
+    setIsLoading(false);
+  }
+}
+
+export function getCardSimData(id) {
+  // Combine the data with the id
+  return {
+    id,
+    ...matterResult.data
+  }
+}
+
+export async function getStaticPaths() {
+  const paths = getAllCardIds()
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+export async function getStaticProps({ params }) {
+  // Fetch necessary data for the blog post using params.id
 }

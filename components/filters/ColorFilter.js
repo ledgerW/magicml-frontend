@@ -6,8 +6,6 @@ import Form from 'react-bootstrap/Form';
 
 import { useAppContext } from "../../libs/contextLib";
 
-import "../../containers/Home.css";
-
 
 export default function ColorFilter(props) {
   const { filters } = useAppContext();

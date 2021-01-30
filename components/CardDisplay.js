@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import Card from "react-bootstrap/Card";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import "../containers/Home.css";
 
 
 export default function CardDisplay(props) {

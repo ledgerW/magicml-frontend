@@ -1,11 +1,9 @@
 import React from "react";
-import {Helmet} from "react-helmet";
-import Button from "react-bootstrap/Button";
+import Head from 'next/head'
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FAQUnit from "../components/FAQUnit";
-import "./Home.css";
 
 
 export default function About() {
@@ -101,12 +99,12 @@ export default function About() {
 
   return (
     <div>
-      <Helmet>
+      <Head>
           <title>{meta.title}</title>
           <meta name="keywords" content={meta.keywords}/>
           <meta name="description" content={meta.description}/>
           <link rel="canonical" href="https://magicml.com/faq" />
-      </Helmet>
+      </Head>
       <div className="BasicPage">
         <Header>
         </Header>

@@ -1,5 +1,4 @@
-import React from "react";
-import {Helmet} from "react-helmet";
+import Head from 'next/head'
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -7,7 +6,6 @@ import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import { useAppContext } from "../libs/contextLib";
 import Scryfall from "../libs/scryfall";
-import "./Home.css";
 
 export default function Home() {
   let meta = {
@@ -15,7 +13,6 @@ export default function Home() {
     'keywords': "Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards",
     'description': "Magic: The Gathering card search powered by Natural Language Processing"
   };
-  let title = "MagicML";
   const nCardsPerRow = 4;
 
   const {
@@ -58,7 +55,7 @@ export default function Home() {
 
   return (
     <div>
-      <Helmet>
+      <Head>
           <title>{meta.title}</title>
           <meta name="keywords" content={meta.keywords}/>
           <meta name="description" content={meta.description}/>
@@ -69,8 +66,8 @@ export default function Home() {
           <meta name="twitter:title" content={meta.title}></meta>
           <meta name="twitter:description" content={meta.description}></meta>
           <meta name="twitter:image" content="/logo512.png"></meta>
-      </Helmet>
-      <div class="HomePageMain">
+      </Head>
+      <div className="HomePageMain">
         <Header></Header>
         <div class="HomePageTitle">
           <h2>Find cards with similar functionality</h2>

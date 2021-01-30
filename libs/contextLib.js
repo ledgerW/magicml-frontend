@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-import { AppContext } from "./libs/contextLib";
-import Routes from "./Routes";
-import "./index.css";
-import "./App.css";
+import { useContext, createContext, useState } from "react";
 
+export const AppContext = createContext();
 
-function App() {
+export function ContextWrapper({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [formCard, setFormCard] = useState("");
@@ -63,12 +60,13 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <AppContext.Provider value={ allContext }>
-        <Routes />
-      </AppContext.Provider>
-    </div>
+    <AppContext.Provider value={allContext}>
+      {children}
+    </AppContext.Provider>
   );
 }
 
-export default App;
+
+export function useAppContext() {
+  return useContext(AppContext);
+}

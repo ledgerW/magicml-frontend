@@ -1,9 +1,6 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import "../index.css";
-import "../containers/Home.css";
-import "../App.css";
 
 
 export default function Header(props) {
