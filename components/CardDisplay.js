@@ -1,4 +1,6 @@
 import React, { useRef } from "react";
+import Link from "next/link";
+
 import Card from "react-bootstrap/Card";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
@@ -32,17 +34,21 @@ export default function CardDisplay(props) {
             overlay={renderHover(src)}
           >
             <Card border="light" className="Card text-center">
-              <Card.Link href={`/similarity/${name.replace('//','__')}`}>
-                <Card.Img variant="top" src={ src } />
-              </Card.Link>
+              <Link href={`/similarity/${name.replace('//','__')}`} passHref>
+                <Card.Link>
+                  <Card.Img variant="top" src={ src } />
+                </Card.Link>
+              </Link>
             </Card>
           </OverlayTrigger>
           )
         : (
           <Card border="light" className="Card text-center">
-            <Card.Link href={`/similarity/${name.replace('//','__')}`}>
-              <Card.Img variant="top" src={ src } />
-            </Card.Link>
+            <Link href={`/similarity/${name.replace('//','__')}`} passHref>
+              <Card.Link>
+                <Card.Img variant="top" src={ src } />
+              </Card.Link>
+            </Link>
           </Card>
           )
       }

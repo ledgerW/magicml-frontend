@@ -3,20 +3,20 @@ import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
 import Head from 'next/head'
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import SearchBar from "../components/SearchBar";
-import SearchResults from "../components/SearchResults";
-import CardDisplay from "../components/CardDisplay";
-import Filters from "../components/Filters";
-import Scryfall from "../libs/scryfall";
-import { useAppContext } from "../libs/contextLib";
-import { onError } from "../libs/errorLib";
-import { search } from "../libs/similarityLib";
-import { applyFilters } from "../libs/filtersLib";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import SearchBar from "../../components/SearchBar";
+import SearchResults from "../../components/SearchResults";
+import CardDisplay from "../../components/CardDisplay";
+import Filters from "../../components/Filters";
+import Scryfall from "../../libs/scryfall";
+import { useAppContext } from "../../libs/contextLib";
+import { onError } from "../../libs/errorLib";
+import { similaritySearch } from "../../libs/similarityLib";
+import { defaultFilters, applyFilters } from "../../libs/filtersLib";
 
 
-export default function Results() {
+export default function Results({ id }) {
   let meta = {
     'title': 'MagicML',
     'keywords': "Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards",
@@ -33,17 +33,15 @@ export default function Results() {
     searchedCard, setSearchedCard,
     simCards, setSimCards,
     filteredSimCards, setFilteredSimCards,
-    filters
+    filters, setFilters
   } = useAppContext();
-
-  //const { nameParam } = useParams();
 
 
   useEffect(() => {
     setIsLoading(true);
-    newSimSearch();
-  }, [nameParam]);
-
+    setFilters(defaultFilters);
+    newSimSearch(id);
+  }, [id]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -51,12 +49,37 @@ export default function Results() {
   }, [filters]);
 
 
+  // Similarity Search
+  async function newSimSearch(id) {
+    /*
+    id (str): card name
+    */
+    try {
+      const res = await similaritySearch(id);
+      if (res.cards.length > 0) {
+        let resSearchCard = res.cards[0]
+        let resSimCards = res.cards[0].similarities.slice(0, nCardResults);
+        setSearchedCard(resSearchCard);
+        setSimCards(resSimCards);
+        setFilteredSimCards(resSimCards);
+        setIsLoading(false);
+      } else {
+        setShowAlert(true);
+        setIsLoading(false);
+      }
+    }
+    catch(e) {
+      setIsLoading(false);
+    }
+  }
+
+
   // Scryfall Search
   function validateForm() {
     return formCard.length > 0;
   }
 
-  async function scryfallSubmit(event) {
+  async function scryfallSearch(event) {
     event.preventDefault();
   
     setShowAlert(false);
@@ -129,21 +152,21 @@ export default function Results() {
   return (
     <div>
       <Head>
-          <title>{meta.title.concat(" - ", nameParam)}</title>
-          <meta name="keywords" content={meta.keywords.concat(", ", nameParam)}/>
+          <title>{meta.title.concat(" - ", id)}</title>
+          <meta name="keywords" content={meta.keywords.concat(", ", id)}/>
           <meta name="description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}/>
-          <link rel="canonical" href="https://magicml.com/similarity" />
+          <link rel="canonical" href={"https://magicml.com/similarity".concat("/",id)} />
           <meta property="og:type" content="website"></meta>
           <meta name="twitter:card" content="summary_large_image"></meta>
           <meta name="twitter:site" content="@magicml2"></meta>
-          <meta name="twitter:title" content={meta.title.concat(" - ", nameParam)}></meta>
+          <meta name="twitter:title" content={meta.title.concat(" - ", id)}></meta>
           <meta name="twitter:description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}></meta>
           <meta name="twitter:image" content={searchedCard ? searchedCard.image_urls.normal : "/logo512.png"}></meta>
       </Head>
       <div className="ResultsPage">
         <Header>
           <SearchBar
-            handleSubmit={scryfallSubmit}
+            handleSubmit={scryfallSearch}
             isLoading={isLoading}
             validateForm={validateForm}
             card={formCard}
@@ -165,20 +188,15 @@ export default function Results() {
   );
 }
 
+
+// Next.js Dynamic Route Functions
 export function getAllCardIds() {
-  // Returns an array that looks like this:
-  // [
-  //   {
-  //     params: {
-  //       id: 'ssg-ssr'
-  //     }
-  //   },
-  //   {
-  //     params: {
-  //       id: 'pre-rendering'
-  //     }
-  //   }
-  // ]
+  const cardNames = [
+    'Happily Ever After',
+    'Opt',
+    'Negate'
+  ]
+
   return cardNames.map(cardName => {
     return {
       params: {
@@ -186,35 +204,6 @@ export function getAllCardIds() {
       }
     }
   })
-}
-
-// Similarity Search
-async function newSimSearch() {
-  try {
-    const res = await search(nameParam);
-    if (res.cards.length > 0) {
-      let resSearchCard = res.cards[0]
-      let resSimCards = res.cards[0].similarities.slice(0, nCardResults);
-      setSearchedCard(resSearchCard);
-      setSimCards(resSimCards);
-      setFilteredSimCards(resSimCards);
-      setIsLoading(false);
-    } else {
-      setShowAlert(true);
-      setIsLoading(false);
-    }
-  }
-  catch(e) {
-    setIsLoading(false);
-  }
-}
-
-export function getCardSimData(id) {
-  // Combine the data with the id
-  return {
-    id,
-    ...matterResult.data
-  }
 }
 
 export async function getStaticPaths() {
@@ -225,6 +214,17 @@ export async function getStaticPaths() {
   }
 }
 
+
+// For getStaticProps
+// maybe put newSimSearch back here
 export async function getStaticProps({ params }) {
-  // Fetch necessary data for the blog post using params.id
+  let staticSimCards = [];
+  let id = params.id;
+
+  return {
+    props: {
+      id,
+      staticSimCards
+    },
+  };
 }

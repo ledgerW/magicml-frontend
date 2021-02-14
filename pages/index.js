@@ -28,7 +28,7 @@ export default function Home() {
     return formCard.length > 0;
   }
 
-  async function handleSubmit(event) {
+  async function scryfallSearch(event) {
     event.preventDefault();
 
     setShowAlert(false);
@@ -75,7 +75,7 @@ export default function Home() {
         </div>
         <div className="HomeSearchBar container">
           <SearchBar
-            handleSubmit={handleSubmit}
+            handleSubmit={scryfallSearch}
             isLoading={isLoading}
             validateForm={validateForm}
             card={formCard}

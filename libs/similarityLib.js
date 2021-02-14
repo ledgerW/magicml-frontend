@@ -1,6 +1,6 @@
 import { API } from "aws-amplify";
 
-export function search(card) {
+export function similaritySearch(card) {
   return API.post("similarity", "/query", {
     body: {
       key: 'name',
