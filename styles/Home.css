@@ -1,0 +1,253 @@
+.HomePageMain {
+  position: static;
+  min-height: 100vh;
+
+  padding: 0vh 0vw 2vh 0vw;
+  margin: 0;
+
+  background: url("../assets/happy_win.png") #3c8d89;
+  background-size: auto;
+  background-position: center top;
+  background-blend-mode: overlay;
+  text-align: center;
+}
+
+.HomePageTitle {
+  background: #1f2833a1;
+  margin: 10vh 0vw 0vh 0vw;
+  padding: 2vh 0vw;
+  color: var(--light-grey);
+}
+
+.SearchHelper {
+  background: #1f2833a2;
+  margin: 0vh 0vw 1vh 0vw;
+  padding: 1vh 0vw 0vh 0vw;
+  color: var(--light-grey);
+}
+
+.HomeSearchBar {
+  padding: 10vh 12vw 0vh 12vw;
+  text-align: center;
+}
+
+.HomeSearchBar .input-group-prepend {
+  background: var(--dark-dark);
+}
+
+.SearchBar {
+  height: 8vh;
+  font-size: 5vh;
+}
+
+.HomeSearchResults {
+  margin: 2vh 12vw 0vh 12vw;
+  padding: 2vh 0vw 0vh 0vw;
+  background: rgba(255, 255, 255, 0);
+}
+
+.HomePageStats {
+  margin: 0%;
+}
+
+.BrandHeader {
+  font-size: 4vh;
+  color: #D1E8E2;
+}
+
+.Header {
+  background: linear-gradient(to right, #0b0c10,  #0b0c1086);
+  color: #D1E8E2;
+  font-size: large;
+  padding: 1vh 5vw 1vh 5vw;
+  margin: 0vh 0vw 0vh 0vw;
+}
+
+.Header .navbar-brand {
+  color: var(--light-grey);
+}
+
+.Header .navbar-brand:hover {
+  color: var(--light-grey);
+}
+
+.Header .navbar-nav .nav-link {
+  color: var(--light-grey);
+}
+
+.Header .navbar-nav .nav-link:hover {
+  color: var(--dark-blue);
+}
+
+footer {
+  padding: 5vh 5vw 2vh 5vw;
+  text-align: center;
+  background: var(--dark-dark);
+  color: var(--light-grey);
+  box-shadow: 0 50vh 0 50vh var(--dark-dark);
+}
+
+footer .content {
+  padding: 0vh 10vw 3vh 10vw;
+}
+
+footer .legal {
+  padding: 1vh 10vw 0vh 10vw;
+  font-size: x-small;
+  color: var(--light-grey);
+}
+
+input[type="text"] {
+  font-size: 24px;
+}
+
+.ResultsPage {
+  position: static;
+  min-height: 100vh;
+
+  padding: 0vh 0vw 2vh 0vw;
+  margin: 0;
+
+  background: url("../assets/happy_win.png") #3c8d89;
+  background-size: auto;
+  background-position: center top;
+  background-blend-mode: overlay;
+  text-align: center;
+}
+
+.BasicPage {
+  position: static;
+  min-height: 100vh;
+
+  padding: 0vh 0vw 2vh 0vw;
+  margin: 0;
+
+  background: url("../assets/happy_win.png") #3c8d89;
+  background-size: auto;
+  background-position: center top;
+  background-blend-mode: overlay;
+  text-align: center;
+}
+
+.ResultsFilters {
+  padding: 5vh 0vw 5vh 0vw;
+}
+
+.Filters {
+  margin: 0vh 12vw 0vh 12vw;
+  text-align: center;
+  color: var(--light-grey);
+}
+
+.Filters button {
+  background: var(--dark-dark) !important;
+  border: var(--dark-blue) !important;
+  color: var(--light-grey) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.Filters button:hover {
+  background: var(--dark-blue) !important;
+  border: var(--dark-blue) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.Filters button:active {
+  background: var(--dark-blue) !important;
+  border: var(--dark-blue) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.dropdown-menu {
+  background: var(--light-dark) !important;
+  color: var(--light-grey);
+  z-index: 10000;
+}
+
+.dropdown-item {
+  background: var(--light-dark) !important;
+  color: var(--light-grey);
+}
+
+.dropdown-item:hover {
+  background: var(--light-dark) !important;
+  color: var(--dark-blue);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background: var(--light-dark) !important;
+  color: var(--dark-blue) !important;
+}
+
+.SearchResults {
+  padding: 0vh 0vw 0vh 0vw;
+  background: rgba(255, 255, 255, 0);
+}
+
+.Card {
+  padding: 5px 0px 5px 0px;
+  background: rgba(255, 255, 255, 0);
+  border :rgba(255, 255, 255, 0);
+}
+
+.CardOverlay {
+  border :rgba(255, 255, 255, 0);
+  width: 18rem;
+  z-index: 10000;
+}
+
+.BasicText {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1.25em;
+  text-align: left;
+  padding: 5vh 0vw 5vh 0vw;
+}
+
+.FAQ .card {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1.25em;
+  text-align: left;
+  border: none;
+  padding: 1vh 0vw 2vh 1vw;
+}
+
+.FAQ button {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1em;
+  text-align: left;
+  border: none;
+  text-decoration: none;
+}
+
+.FAQ button:focus {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1em;
+  text-align: left;
+  border: none;
+  text-decoration: none;
+}
+
+.FAQ button::after {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1em;
+  text-align: left;
+  border: none;
+  text-decoration: none;
+}
+
+.FAQ button:hover {
+  background: var(--light-dark);
+  color: var(--light-grey);
+  font-size: 1em;
+  text-align: left;
+  border: none;
+  text-decoration: none;
+}

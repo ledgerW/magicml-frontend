@@ -1,0 +1,19 @@
+.LoaderButton {
+  padding: 0vh 2vw;
+  font-size: 3vh;
+}
+
+.LoaderButton .spinning {
+  margin-right: 1vw;
+  top: 2px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}
