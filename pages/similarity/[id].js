@@ -13,6 +13,7 @@ import Scryfall from "../../libs/scryfall";
 import { useAppContext } from "../../libs/contextLib";
 import { onError } from "../../libs/errorLib";
 import { similaritySearch } from "../../libs/similarityLib";
+import { getAllCardIds, removeFSPackage } from "../../libs/dynamicPathLib";
 import { defaultFilters, applyFilters } from "../../libs/filtersLib";
 
 
@@ -190,22 +191,6 @@ export default function Results({ id }) {
 
 
 // Next.js Dynamic Route Functions
-export function getAllCardIds() {
-  const cardNames = [
-    'Happily Ever After',
-    'Opt',
-    'Negate'
-  ]
-
-  return cardNames.map(cardName => {
-    return {
-      params: {
-        id: cardName.replace('//','__')
-      }
-    }
-  })
-}
-
 export async function getStaticPaths() {
   const paths = getAllCardIds()
   return {
@@ -218,6 +203,7 @@ export async function getStaticPaths() {
 // For getStaticProps
 // maybe put newSimSearch back here
 export async function getStaticProps({ params }) {
+  removeFSPackage();
   let staticSimCards = [];
   let id = params.id;
 
