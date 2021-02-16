@@ -11,7 +11,8 @@ export default function CardDisplay(props) {
   var src = '';
   
   try {
-    src = JSON.parse(image_urls.replaceAll("'", "\"")).normal
+    src = JSON.parse(image_urls.replaceAll("'", "\""))
+    src = Array.isArray(src) ? src[0].normal : src.normal
   } catch (e) {
     src = image_urls.normal
   }

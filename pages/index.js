@@ -6,6 +6,7 @@ import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import { useAppContext } from "../libs/contextLib";
 import Scryfall from "../libs/scryfall";
+import { supportedSets } from "../libs/magicLib";
 
 export default function Home() {
   let meta = {
@@ -38,7 +39,11 @@ export default function Home() {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
       // only show cards in Arena
-      data = data.filter(card => card.hasOwnProperty('arena_id'));
+      data = data.map(card => {
+        if (supportedSets.some(s => card.set_name.includes(s))) {
+          return card
+        }
+      }).filter(el => el != null);
       
       if (data.length == 0) {
         setShowAlert(true);
