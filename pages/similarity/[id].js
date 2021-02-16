@@ -257,6 +257,7 @@ export async function getStaticPaths() {
 // maybe put newSimSearch back here
 export async function getStaticProps({ params }) {
   removeFSPackage();
+  console.log(params);
   let simSearch = null;
   let id = params.id;
   let simResults = await similaritySearch(params.id);
