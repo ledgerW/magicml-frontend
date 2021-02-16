@@ -20,6 +20,8 @@ import { supportedSets } from "../../libs/magicLib";
 
 
 export default function Results({ id, simSearch, simResults }) {
+  console.log(simSearch);
+
   const router = useRouter()
 
   let meta = {
