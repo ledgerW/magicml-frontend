@@ -272,6 +272,7 @@ export async function getStaticProps({ params }) {
     ))
 
     top3Sims = [...new Set(top3Sims)].slice(0, 3)
+    console.log(top3Sims);
   }
 
   return {

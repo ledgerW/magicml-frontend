@@ -1,6 +1,11 @@
 import fs from "fs";
 
-const cardNamesPath = "pages/similarity/CARDNAMES.txt";
+let cardNamesPath;
+try {
+  cardNamesPath = "../CARDNAMES.txt";
+} catch {
+  cardNamesPath = "./CARDNAMES.txt";
+}
 
 export function getAllCardIds() {
   var cardNames = fs.readFileSync(cardNamesPath, 'utf8').toString().split("\n")
