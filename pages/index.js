@@ -74,7 +74,7 @@ export default function Home() {
       </Head>
       <div className="HomePageMain">
         <Header></Header>
-        <div class="HomePageTitle">
+        <div className="HomePageTitle">
           <h2>Find cards with similar functionality</h2>
           <h5><b>Magic: The Gathering</b> card search powered by Natural Language Processing</h5>
         </div>
@@ -89,7 +89,7 @@ export default function Home() {
         </div>
         <div className="HomeSearchResults">
           {scryfallCards.length > 0 &&
-            <div class="SearchHelper">
+            <div className="SearchHelper">
               <h2>What card do you want to find similarities for?</h2>
             </div>
           }
