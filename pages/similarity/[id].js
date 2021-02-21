@@ -22,6 +22,8 @@ import { supportedSets } from "../../libs/magicLib";
 export default function Results({ id, simSearch, top3Sims }) {
   const router = useRouter()
 
+  let top3Sims = top3Sims ? top3Sims : 'Top 3...';
+
   let meta = {
     'title': 'MagicML',
     'keywords': "Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards",
