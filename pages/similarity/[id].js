@@ -41,6 +41,8 @@ export default function Results({ id, simSearch, top3Sims }) {
     } catch (e) {
       searchImageURLs = simSearch.image_urls
     }
+  } else {
+    searchImageURLs = ''
   }
 
   const nCardsPerRow = 4;
