@@ -22,7 +22,10 @@ import { supportedSets } from "../../libs/magicLib";
 export default function Results({ id, simSearch, top3Sims }) {
   const router = useRouter()
 
-  let top3Sims = top3Sims ? top3Sims : 'Top 3...';
+  if (!top3Sims) {
+    top3Sims = 'Top 3...';
+  }
+  console.log(top3Sims)
 
   let meta = {
     'title': 'MagicML',
