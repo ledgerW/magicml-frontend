@@ -25,7 +25,6 @@ export default function Results({ id, simSearch, top3Sims }) {
   if (!top3Sims) {
     top3Sims = [''];
   }
-  console.log(top3Sims)
 
   let meta = {
     'title': 'MagicML',
@@ -186,7 +185,7 @@ export default function Results({ id, simSearch, top3Sims }) {
             <meta name="description" content={'Top 3: '.concat(top3Sims.join(', '))}/>
             <link rel="canonical" href={"https://magicml.com/similarity".concat("/", id)} />
             <meta property="og:type" content="website"></meta>
-            <meta name="twitter:card" content="summary_large_image"></meta>
+            <meta name="twitter:card" content="summary"></meta>
             <meta name="twitter:site" content="@magicml2"></meta>
             <meta name="twitter:title" content={meta.title.concat(" - Similars - ", id)}></meta>
             <meta name="twitter:description" content={'Top 3: '.concat(top3Sims.join(', '))}></meta>
@@ -219,7 +218,7 @@ export default function Results({ id, simSearch, top3Sims }) {
           <meta name="description" content={'Top 3: '.concat(top3Sims.join(', '))}/>
           <link rel="canonical" href={"https://magicml.com/similarity".concat("/", id)} />
           <meta property="og:type" content="website"></meta>
-          <meta name="twitter:card" content="summary_large_image"></meta>
+          <meta name="twitter:card" content="summary"></meta>
           <meta name="twitter:site" content="@magicml2"></meta>
           <meta name="twitter:title" content={meta.title.concat(" - Similars - ", id)}></meta>
           <meta name="twitter:description" content={'Top 3: '.concat(top3Sims.join(', '))}></meta>
