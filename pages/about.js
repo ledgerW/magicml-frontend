@@ -18,7 +18,13 @@ export default function About() {
           <title>{meta.title}</title>
           <meta name="keywords" content={meta.keywords}/>
           <meta name="description" content={meta.description}/>
-          <link rel="canonical" href="https://magicml.com/about" />
+          <link rel="canonical" href="https://magicml.com/about"/>
+          <meta property="og:type" content="website"></meta>
+          <meta name="twitter:card" content="summary"></meta>
+          <meta name="twitter:site" content="@magicml2"></meta>
+          <meta name="twitter:title" content={meta.title}></meta>
+          <meta name="twitter:description" content={meta.description}></meta>
+          <meta name="twitter:image" content="/logo512.png"></meta>
       </Head>
       <div className="BasicPage">
         <Header>

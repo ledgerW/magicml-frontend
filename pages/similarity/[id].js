@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -15,14 +16,34 @@ import { onError } from "../../libs/errorLib";
 import { similaritySearch } from "../../libs/similarityLib";
 import { getAllCardIds, removeFSPackage } from "../../libs/dynamicPathLib";
 import { defaultFilters, applyFilters } from "../../libs/filtersLib";
+import { supportedSets } from "../../libs/magicLib";
 
 
-export default function Results({ id }) {
+export default function Results({ id, simSearch, top3Sims }) {
+  const router = useRouter()
+
+  if (!top3Sims) {
+    top3Sims = [''];
+  }
+
   let meta = {
     'title': 'MagicML',
     'keywords': "Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards",
     'description': "NLP-powered MTG card similarities"
   };
+  
+  let searchImageURLs;
+  if (simSearch) {
+    try {
+      searchImageURLs = JSON.parse(simSearch.image_urls.replaceAll("'", "\""))
+      searchImageURLs = Array.isArray(searchImageURLs) ? searchImageURLs[0] : searchImageURLs
+    } catch (e) {
+      searchImageURLs = simSearch.image_urls
+    }
+  } else {
+    searchImageURLs = ''
+  }
+
   const nCardsPerRow = 4;
   const nCardResults = 25;
 
@@ -41,7 +62,7 @@ export default function Results({ id }) {
   useEffect(() => {
     setIsLoading(true);
     setFilters(defaultFilters);
-    newSimSearch(id);
+    loadSimResults(id);
   }, [id]);
 
   useEffect(() => {
@@ -51,27 +72,28 @@ export default function Results({ id }) {
 
 
   // Similarity Search
-  async function newSimSearch(id) {
+  async function loadSimResults(id) {
     /*
     id (str): card name
     */
+   
+    let simResults = await similaritySearch(id);
+    
     try {
-      const res = await similaritySearch(id);
-      if (res.cards.length > 0) {
-        let resSearchCard = res.cards[0]
-        let resSimCards = res.cards[0].similarities.slice(0, nCardResults);
-        setSearchedCard(resSearchCard);
-        setSimCards(resSimCards);
-        setFilteredSimCards(resSimCards);
-        setIsLoading(false);
-      } else {
-        setShowAlert(true);
+        if (simResults.cards.length > 0) {
+          let simSearchSimCards = simResults.cards[0].similarities.slice(0, nCardResults);
+          setSearchedCard(simResults.cards[0]);
+          setSimCards(simSearchSimCards);
+          setFilteredSimCards(simSearchSimCards);
+          setIsLoading(false);
+        } else {
+          setShowAlert(true);
+          setIsLoading(false);
+        }
+      }
+      catch(e) {
         setIsLoading(false);
       }
-    }
-    catch(e) {
-      setIsLoading(false);
-    }
   }
 
 
@@ -89,7 +111,12 @@ export default function Results({ id }) {
     try {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
-      data = data.filter(card => card.hasOwnProperty('arena_id'));
+
+      data = data.map(card => {
+        if (supportedSets.some(s => card.set_name.includes(s))) {
+          return card
+        }
+      }).filter(el => el != null);
 
       if (data.length == 0) {
         setShowAlert(true);
@@ -149,20 +176,53 @@ export default function Results({ id }) {
     )
   }
 
+  if (router.isFallback) {
+    return (
+      <div>
+        <Head>
+            <title>{meta.title.concat(" - ", id)}</title>
+            <meta name="keywords" content={meta.keywords.concat(", ", id)}/>
+            <meta name="description" content={'Top 3: '.concat(top3Sims.join(', '))}/>
+            <link rel="canonical" href={"https://magicml.com/similarity".concat("/", id)} />
+            <meta property="og:type" content="website"></meta>
+            <meta name="twitter:card" content="summary"></meta>
+            <meta name="twitter:site" content="@magicml2"></meta>
+            <meta name="twitter:title" content={meta.title.concat(" - Similars - ", id)}></meta>
+            <meta name="twitter:description" content={'Top 3: '.concat(top3Sims.join(', '))}></meta>
+            <meta name="twitter:image" content={searchImageURLs.art_crop}></meta>
+        </Head>
+        <div className="ResultsPage">
+          <Header>
+            <SearchBar
+              handleSubmit={scryfallSearch}
+              isLoading={isLoading}
+              validateForm={validateForm}
+              card={formCard}
+              setCard={setFormCard}
+            />
+          </Header>
+          <div class="SearchHelper">
+            <h2>Just a second :)</h2>
+          </div>
+        </div>
+        <Footer></Footer>
+      </div>
+    );
+  }
 
   return (
     <div>
       <Head>
           <title>{meta.title.concat(" - ", id)}</title>
           <meta name="keywords" content={meta.keywords.concat(", ", id)}/>
-          <meta name="description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}/>
-          <link rel="canonical" href={"https://magicml.com/similarity".concat("/",id)} />
+          <meta name="description" content={'Top 3: '.concat(top3Sims.join(', '))}/>
+          <link rel="canonical" href={"https://magicml.com/similarity".concat("/", id)} />
           <meta property="og:type" content="website"></meta>
-          <meta name="twitter:card" content="summary_large_image"></meta>
+          <meta name="twitter:card" content="summary"></meta>
           <meta name="twitter:site" content="@magicml2"></meta>
-          <meta name="twitter:title" content={meta.title.concat(" - ", id)}></meta>
-          <meta name="twitter:description" content={searchedCard ? (searchedCard.name.concat(": ", searchedCard.text)) : meta.description}></meta>
-          <meta name="twitter:image" content={searchedCard ? searchedCard.image_urls.normal : "/logo512.png"}></meta>
+          <meta name="twitter:title" content={meta.title.concat(" - Similars - ", id)}></meta>
+          <meta name="twitter:description" content={'Top 3: '.concat(top3Sims.join(', '))}></meta>
+          <meta name="twitter:image" content={searchImageURLs.art_crop}></meta>
       </Head>
       <div className="ResultsPage">
         <Header>
@@ -195,7 +255,7 @@ export async function getStaticPaths() {
   const paths = getAllCardIds()
   return {
     paths,
-    fallback: false
+    fallback: true
   }
 }
 
@@ -204,13 +264,29 @@ export async function getStaticPaths() {
 // maybe put newSimSearch back here
 export async function getStaticProps({ params }) {
   removeFSPackage();
-  let staticSimCards = [];
+  let simSearch = null;
+  let top3Sims = [''];
   let id = params.id;
+  let simResults = await similaritySearch(params.id);
+  
+  if (simResults.cards.length > 0) {
+    simSearch = simResults.cards[0]
+    top3Sims = simSearch.similarities.filter(card => (
+      card.name != simSearch.name
+    )).map(card => (
+      card.name
+    ))
+
+    top3Sims = [...new Set(top3Sims)].slice(0, 3)
+    console.log(top3Sims);
+  }
 
   return {
     props: {
       id,
-      staticSimCards
+      simSearch,
+      top3Sims
     },
+    revalidate: 60
   };
 }

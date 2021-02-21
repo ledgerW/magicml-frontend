@@ -6,6 +6,7 @@ import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import { useAppContext } from "../libs/contextLib";
 import Scryfall from "../libs/scryfall";
+import { supportedSets } from "../libs/magicLib";
 
 export default function Home() {
   let meta = {
@@ -38,7 +39,11 @@ export default function Home() {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
       // only show cards in Arena
-      data = data.filter(card => card.hasOwnProperty('arena_id'));
+      data = data.map(card => {
+        if (supportedSets.some(s => card.set_name.includes(s))) {
+          return card
+        }
+      }).filter(el => el != null);
       
       if (data.length == 0) {
         setShowAlert(true);
@@ -61,7 +66,7 @@ export default function Home() {
           <meta name="description" content={meta.description}/>
           <link rel="canonical" href="https://magicml.com" />
           <meta property="og:type" content="website"></meta>
-          <meta name="twitter:card" content="summary_large_image"></meta>
+          <meta name="twitter:card" content="summary"></meta>
           <meta name="twitter:site" content="@magicml2"></meta>
           <meta name="twitter:title" content={meta.title}></meta>
           <meta name="twitter:description" content={meta.description}></meta>
@@ -69,7 +74,7 @@ export default function Home() {
       </Head>
       <div className="HomePageMain">
         <Header></Header>
-        <div class="HomePageTitle">
+        <div className="HomePageTitle">
           <h2>Find cards with similar functionality</h2>
           <h5><b>Magic: The Gathering</b> card search powered by Natural Language Processing</h5>
         </div>
@@ -84,7 +89,7 @@ export default function Home() {
         </div>
         <div className="HomeSearchResults">
           {scryfallCards.length > 0 &&
-            <div class="SearchHelper">
+            <div className="SearchHelper">
               <h2>What card do you want to find similarities for?</h2>
             </div>
           }
