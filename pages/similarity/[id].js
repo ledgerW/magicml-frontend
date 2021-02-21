@@ -23,7 +23,7 @@ export default function Results({ id, simSearch, top3Sims }) {
   const router = useRouter()
 
   if (!top3Sims) {
-    top3Sims = 'Top 3...';
+    top3Sims = [''];
   }
   console.log(top3Sims)
 
