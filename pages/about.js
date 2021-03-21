@@ -1,6 +1,6 @@
 import React from "react";
-import Head from 'next/head'
 
+import CustomHead from "../components/CustomHead";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -8,24 +8,15 @@ import Footer from "../components/Footer";
 export default function About() {
   let meta = {
     'title': 'MagicML - About',
-    'keywords': "Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards",
-    'description': "Magic: The Gathering card search powered by Natural Language Processing"
+    'keywords': 'Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards',
+    'description': 'Magic: The Gathering card search powered by Natural Language Processing',
+    'canonical': 'https://magicml.com/about',
+    'image': '/logo512.png'
   };
 
   return (
     <div>
-      <Head>
-          <title>{meta.title}</title>
-          <meta name="keywords" content={meta.keywords}/>
-          <meta name="description" content={meta.description}/>
-          <link rel="canonical" href="https://magicml.com/about"/>
-          <meta property="og:type" content="website"></meta>
-          <meta name="twitter:card" content="summary"></meta>
-          <meta name="twitter:site" content="@magicml2"></meta>
-          <meta name="twitter:title" content={meta.title}></meta>
-          <meta name="twitter:description" content={meta.description}></meta>
-          <meta name="twitter:image" content="/logo512.png"></meta>
-      </Head>
+      <CustomHead {...meta}/>
       <div className="BasicPage">
         <Header>
         </Header>
