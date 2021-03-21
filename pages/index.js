@@ -1,5 +1,4 @@
-import Head from 'next/head'
-
+import CustomHead from "../components/CustomHead";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
@@ -11,8 +10,10 @@ import { supportedSets } from "../libs/magicLib";
 export default function Home() {
   let meta = {
     'title': 'MagicML',
-    'keywords': "Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards",
-    'description': "Magic: The Gathering card search powered by Natural Language Processing"
+    'keywords': 'Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards',
+    'description': 'Magic: The Gathering card search powered by Natural Language Processing',
+    'canonical': 'https://magicml.com',
+    'image': 'https://magicml.com/logo512.png'
   };
   const nCardsPerRow = 4;
 
@@ -60,18 +61,7 @@ export default function Home() {
 
   return (
     <div>
-      <Head>
-          <title>{meta.title}</title>
-          <meta name="keywords" content={meta.keywords}/>
-          <meta name="description" content={meta.description}/>
-          <link rel="canonical" href="https://magicml.com" />
-          <meta property="og:type" content="website"></meta>
-          <meta name="twitter:card" content="summary"></meta>
-          <meta name="twitter:site" content="@magicml2"></meta>
-          <meta name="twitter:title" content={meta.title}></meta>
-          <meta name="twitter:description" content={meta.description}></meta>
-          <meta name="twitter:image" content="/logo512.png"></meta>
-      </Head>
+      <CustomHead {...meta}/>
       <div className="HomePageMain">
         <Header></Header>
         <div className="HomePageTitle">

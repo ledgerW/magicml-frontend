@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 
+import CustomHead from "../../components/CustomHead";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import SearchBar from "../../components/SearchBar";
@@ -25,12 +25,6 @@ export default function Results({ id, simSearch, top3Sims }) {
   if (!top3Sims) {
     top3Sims = [''];
   }
-
-  let meta = {
-    'title': 'MagicML',
-    'keywords': "Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards",
-    'description': "NLP-powered MTG card similarities"
-  };
   
   let searchImageURLs;
   if (simSearch) {
@@ -43,6 +37,16 @@ export default function Results({ id, simSearch, top3Sims }) {
   } else {
     searchImageURLs = ''
   }
+
+  let meta = {
+    'dynamic': true,
+    'title': 'MagicML',
+    'keywords': 'Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards',
+    'description': 'NLP-powered MTG card similarities',
+    'id': id,
+    'searchImageURLs': searchImageURLs,
+    'top3Sims': top3Sims
+  };
 
   const nCardsPerRow = 4;
   const nCardResults = 25;
@@ -76,7 +80,6 @@ export default function Results({ id, simSearch, top3Sims }) {
     /*
     id (str): card name
     */
-   
     let simResults = await similaritySearch(id);
     
     try {
@@ -179,18 +182,7 @@ export default function Results({ id, simSearch, top3Sims }) {
   if (router.isFallback) {
     return (
       <div>
-        <Head>
-            <title>{meta.title.concat(" - ", id)}</title>
-            <meta name="keywords" content={meta.keywords.concat(", ", id)}/>
-            <meta name="description" content={'Top 3: '.concat(top3Sims.join(', '))}/>
-            <link rel="canonical" href={"https://magicml.com/similarity".concat("/", id)} />
-            <meta property="og:type" content="website"></meta>
-            <meta name="twitter:card" content="summary"></meta>
-            <meta name="twitter:site" content="@magicml2"></meta>
-            <meta name="twitter:title" content={meta.title.concat(" - Similars - ", id)}></meta>
-            <meta name="twitter:description" content={'Top 3: '.concat(top3Sims.join(', '))}></meta>
-            <meta name="twitter:image" content={searchImageURLs.art_crop}></meta>
-        </Head>
+        <CustomHead {...meta}/>
         <div className="ResultsPage">
           <Header>
             <SearchBar
@@ -212,18 +204,7 @@ export default function Results({ id, simSearch, top3Sims }) {
 
   return (
     <div>
-      <Head>
-          <title>{meta.title.concat(" - ", id)}</title>
-          <meta name="keywords" content={meta.keywords.concat(", ", id)}/>
-          <meta name="description" content={'Top 3: '.concat(top3Sims.join(', '))}/>
-          <link rel="canonical" href={"https://magicml.com/similarity".concat("/", id)} />
-          <meta property="og:type" content="website"></meta>
-          <meta name="twitter:card" content="summary"></meta>
-          <meta name="twitter:site" content="@magicml2"></meta>
-          <meta name="twitter:title" content={meta.title.concat(" - Similars - ", id)}></meta>
-          <meta name="twitter:description" content={'Top 3: '.concat(top3Sims.join(', '))}></meta>
-          <meta name="twitter:image" content={searchImageURLs.art_crop}></meta>
-      </Head>
+      <CustomHead {...meta}/>
       <div className="ResultsPage">
         <Header>
           <SearchBar
