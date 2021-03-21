@@ -12,7 +12,7 @@ export default function About() {
     'keywords': 'Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards',
     'description': 'Magic: The Gathering card search powered by Natural Language Processing',
     'canonical': 'https://magicml.com/faq',
-    'image': '/logo512.png'
+    'image': 'https://magicml.com/logo512.png'
   };
 
   let faqs = [
