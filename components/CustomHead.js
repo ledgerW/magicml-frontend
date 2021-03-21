@@ -11,7 +11,7 @@ export default function CustomHead(props) {
           <meta name="description" content={'Top 3: '.concat(props.top3Sims.join(', '))}/>
           <link rel="canonical" href={"https://magicml.com/similarity".concat("/", props.id)} />
           <meta property="og:type" content="website"></meta>
-          <meta name="og:type" content="summary"></meta>
+          <meta name="twitter:card" content="summary_large_image"></meta>
           <meta name="twitter:site" content="@magicml2"></meta>
           <meta name="og:title" content={props.title.concat(" - Similars - ", props.id)}></meta>
           <meta name="og:description" content={'Top 3: '.concat(props.top3Sims.join(', '))}></meta>
@@ -26,7 +26,7 @@ export default function CustomHead(props) {
           <meta name="description" content={props.description}/>
           <link rel="canonical" href="https://magicml.com" />
           <meta property="og:type" content="website"></meta>
-          <meta name="og:type" content="summary"></meta>
+          <meta name="twitter:card" content="summary_large_image"></meta>
           <meta name="twitter:site" content="@magicml2"></meta>
           <meta name="og:title" content={props.title}></meta>
           <meta name="og:description" content={props.description}></meta>
