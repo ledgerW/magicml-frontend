@@ -75,6 +75,10 @@ export default function Results({ id, simSearch, top3Sims }) {
   }, [filters]);
 
 
+  function validateForm() {
+    return formCard.length > 0;
+  }
+
   // Similarity Search
   async function loadSimResults(id) {
     /*
@@ -101,10 +105,6 @@ export default function Results({ id, simSearch, top3Sims }) {
 
 
   // Scryfall Search
-  function validateForm() {
-    return formCard.length > 0;
-  }
-
   async function scryfallSearch(event) {
     event.preventDefault();
   
@@ -115,11 +115,13 @@ export default function Results({ id, simSearch, top3Sims }) {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
 
+      /*
       data = data.map(card => {
         if (supportedSets.some(s => card.set_name.includes(s))) {
           return card
         }
       }).filter(el => el != null);
+      */
 
       if (data.length == 0) {
         setShowAlert(true);

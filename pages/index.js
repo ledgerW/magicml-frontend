@@ -39,12 +39,15 @@ export default function Home() {
     try {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
+      
       // only show cards in Arena
+      /*
       data = data.map(card => {
         if (supportedSets.some(s => card.set_name.includes(s))) {
           return card
         }
       }).filter(el => el != null);
+      */
       
       if (data.length == 0) {
         setShowAlert(true);
