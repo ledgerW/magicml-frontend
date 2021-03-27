@@ -16,7 +16,6 @@ import { onError } from "../../libs/errorLib";
 import { similaritySearch } from "../../libs/similarityLib";
 import { getAllCardIds, removeFSPackage } from "../../libs/dynamicPathLib";
 import { defaultFilters, applyFilters } from "../../libs/filtersLib";
-import { supportedSets } from "../../libs/magicLib";
 
 
 export default function Results({ id, simSearch, top3Sims }) {
