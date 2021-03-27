@@ -34,7 +34,7 @@ export default function CustomHead(props) {
           }}
         />
         <LogoJsonLd
-          logo="http://magicml.com/images/logo512.png"
+          logo="http://magicml.com/public/logo512.png"
           url="http://magicml.com"
         />
         <BreadcrumbJsonLd
@@ -76,7 +76,7 @@ export default function CustomHead(props) {
           }}
         />
         <LogoJsonLd
-          logo="http://magicml.com/images/logo512.png"
+          logo="http://magicml.com/public/logo512.png"
           url="http://magicml.com"
         />
         <BreadcrumbJsonLd
