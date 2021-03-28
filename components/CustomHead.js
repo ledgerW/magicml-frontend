@@ -84,7 +84,7 @@ export default function CustomHead(props) {
             path.slice(1).map((p, idx) => {
               return {
                 position: idx+1,
-                name: decodeURI(p),
+                name: decodeURI(p || 'home'),
                 item: 'https://magicml.com/'.concat(path.slice(1,(1+idx+1)).join('/')),
               }
             })
