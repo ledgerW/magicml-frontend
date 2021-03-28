@@ -9,7 +9,7 @@ import { supportedSets } from "../libs/magicLib";
 
 export default function Home() {
   let meta = {
-    'title': 'MagicML',
+    'title': 'MagicML: MTG Tools, Powered by Machine Learning',
     'keywords': 'Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards',
     'description': 'Magic: The Gathering card search powered by Natural Language Processing',
     'canonical': 'https://magicml.com',
@@ -39,12 +39,15 @@ export default function Home() {
     try {
       const res = await Scryfall.get(`search?q=${formCard}`);
       var { data } = res.data;
+
       // only show cards in Arena
+      /*
       data = data.map(card => {
         if (supportedSets.some(s => card.set_name.includes(s))) {
           return card
         }
       }).filter(el => el != null);
+      */
       
       if (data.length == 0) {
         setShowAlert(true);

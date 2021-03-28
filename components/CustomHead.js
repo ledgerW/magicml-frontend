@@ -1,37 +1,96 @@
 import React from "react";
-import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { NextSeo, LogoJsonLd, BreadcrumbJsonLd } from 'next-seo';
 
 
 export default function CustomHead(props) {
+  const router = useRouter()
+  const path = router.asPath.split('/')
+  console.log(path);
+
   if (props.dynamic) {
     return (
-      <Head>
-          <title>{props.title.concat(" - ", props.id)}</title>
-          <meta name="keywords" content={props.keywords.concat(", ", props.id)}/>
-          <meta name="description" content={'Top 3: '.concat(props.top3Sims.join(', '))}/>
-          <link rel="canonical" href={"https://magicml.com/similarity".concat("/", props.id)} />
-          <meta property="og:type" content="website"></meta>
-          <meta name="twitter:card" content="summary_large_image"></meta>
-          <meta name="twitter:site" content="@magicml2"></meta>
-          <meta name="og:title" content={props.title.concat(" - Similars - ", props.id)}></meta>
-          <meta name="og:description" content={'Top 3: '.concat(props.top3Sims.join(', '))}></meta>
-          <meta name="og:image" content={props.searchImageURLs.art_crop}></meta>
-      </Head>
+      <>
+        <NextSeo
+          title={props.title.concat(" - ", props.id)}
+          description={'Top 3: '.concat(props.top3Sims.join(', '))}
+          canonical={"https://magicml.com/similarity".concat("/", props.id)}
+          openGraph={{
+            url: "https://magicml.com/similarity".concat("/", props.id),
+            title: props.title.concat(" - Similars - ", props.id),
+            description: 'Top 3: '.concat(props.top3Sims.join(', ')),
+            images: [
+              {
+                url: props.searchImageURLs.art_crop,
+                alt: props.id,
+              }
+            ],
+            site_name: 'MagicML',
+          }}
+          twitter={{
+            handle: '@magicml2',
+            site: '@magicml2',
+            cardType: 'summary',
+          }}
+        />
+        <LogoJsonLd
+          logo="http://magicml.com/public/logo512.png"
+          url="http://magicml.com"
+        />
+        <BreadcrumbJsonLd
+          itemListElements={
+            path.slice(1).map((p, idx) => {
+              return {
+                position: idx+1,
+                name: decodeURI(p),
+                item: 'https://magicml.com/'.concat(path.slice(1,(1+idx+1)).join('/')),
+              }
+            })
+          }
+        />
+      </>
     )
   } else {
     return (
-      <Head>
-          <title>{props.title}</title>
-          <meta name="keywords" content={props.keywords}/>
-          <meta name="description" content={props.description}/>
-          <link rel="canonical" href="https://magicml.com" />
-          <meta property="og:type" content="website"></meta>
-          <meta name="twitter:card" content="summary_large_image"></meta>
-          <meta name="twitter:site" content="@magicml2"></meta>
-          <meta name="og:title" content={props.title}></meta>
-          <meta name="og:description" content={props.description}></meta>
-          <meta name="og:image" content={props.image}></meta>
-      </Head>
+      <>
+        <NextSeo
+          title={props.title}
+          description={props.description}
+          canonical={props.canonical}
+          openGraph={{
+            url: props.canonical,
+            title: props.title,
+            description: props.description,
+            images: [
+              {
+                url: props.image,
+                alt: props.title,
+              }
+            ],
+            site_name: 'MagicML',
+          }}
+          twitter={{
+            handle: '@magicml2',
+            site: '@magicml2',
+            cardType: 'summary',
+          }}
+        />
+        <LogoJsonLd
+          logo="http://magicml.com/public/logo512.png"
+          url="http://magicml.com"
+        />
+        <BreadcrumbJsonLd
+          itemListElements={
+            path.slice(1).map((p, idx) => {
+              return {
+                position: idx+1,
+                name: decodeURI(p),
+                item: 'https://magicml.com/'.concat(path.slice(1,(1+idx+1)).join('/')),
+              }
+            })
+          }
+        />
+      </>
     )
   }
 }

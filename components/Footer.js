@@ -9,15 +9,11 @@ export default function Footer() {
       <Row className="content">
         <Col>
           <p>By: Ledger West</p>
+          <p>Email: ledger@magicml.com</p>
         </Col>
         <Col>
           <p>ArenaID: lw2134#69223</p>
-        </Col>
-        <Col>
-          ledger@magicml.com
-        </Col>
-        <Col>
-          @magicml2
+          <p>Twitter: @magicml2</p>
         </Col>
       </Row>
       <Row>
