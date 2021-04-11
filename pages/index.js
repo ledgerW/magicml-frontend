@@ -1,3 +1,8 @@
+import { useState } from "react";
+
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
+
 import CustomHead from "../components/CustomHead";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -5,7 +10,6 @@ import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import { useAppContext } from "../libs/contextLib";
 import Scryfall from "../libs/scryfall";
-import { supportedSets } from "../libs/magicLib";
 
 export default function Home() {
   let meta = {
@@ -23,6 +27,13 @@ export default function Home() {
     formCard, setFormCard,
     scryfallCards, setScryfallCards
   } = useAppContext();
+
+  const [radioValue, setRadioValue] = useState('text');
+
+  const radios = [
+    { name: 'Text Search', value: 'text' },
+    { name: 'Card Search', value: 'card' }
+  ];
 
 
   // Scryfall Search
@@ -72,6 +83,21 @@ export default function Home() {
           <h5><b>Magic: The Gathering</b> card search powered by Natural Language Processing</h5>
         </div>
         <div className="HomeSearchBar container">
+          <ButtonGroup toggle>
+            {radios.map((radio, idx) => (
+              <ToggleButton
+                key={idx}
+                type="radio"
+                variant="secondary"
+                name="radio"
+                value={radio.value}
+                checked={radioValue === radio.value}
+                onChange={(e) => setRadioValue(e.currentTarget.value)}
+              >
+                {radio.name}
+              </ToggleButton>
+            ))}
+          </ButtonGroup>
           <SearchBar
             handleSubmit={scryfallSearch}
             isLoading={isLoading}

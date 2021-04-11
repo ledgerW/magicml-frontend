@@ -13,7 +13,7 @@ import Filters from "../../components/Filters";
 import Scryfall from "../../libs/scryfall";
 import { useAppContext } from "../../libs/contextLib";
 import { onError } from "../../libs/errorLib";
-import { similaritySearch } from "../../libs/similarityLib";
+import { simCardSearch, simTextSearch } from "../../libs/similarityLib";
 import { getAllCardIds, removeFSPackage } from "../../libs/dynamicPathLib";
 import { defaultFilters, applyFilters } from "../../libs/filtersLib";
 
@@ -78,12 +78,12 @@ export default function Results({ id, simSearch, top3Sims }) {
     return formCard.length > 0;
   }
 
-  // Similarity Search
+  // Similarity Card Search
   async function loadSimResults(id) {
     /*
     id (str): card name
     */
-    let simResults = await similaritySearch(id);
+    let simResults = await simCardSearch(id);
     
     try {
         if (simResults.cards.length > 0) {
@@ -249,7 +249,7 @@ export async function getStaticProps({ params }) {
   let simSearch = null;
   let top3Sims = [''];
   let id = params.id;
-  let simResults = await similaritySearch(params.id);
+  let simResults = await simCardSearch(params.id);
   
   if (simResults.cards.length > 0) {
     simSearch = simResults.cards[0]
@@ -260,7 +260,6 @@ export async function getStaticProps({ params }) {
     ))
 
     top3Sims = [...new Set(top3Sims)].slice(0, 3)
-    console.log(top3Sims);
   }
 
   return {

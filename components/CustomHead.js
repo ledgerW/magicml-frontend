@@ -6,7 +6,6 @@ import { NextSeo, LogoJsonLd, BreadcrumbJsonLd } from 'next-seo';
 export default function CustomHead(props) {
   const router = useRouter()
   const path = router.asPath.split('/')
-  console.log(path);
 
   if (props.dynamic) {
     return (
