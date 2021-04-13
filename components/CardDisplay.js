@@ -35,7 +35,7 @@ export default function CardDisplay(props) {
             overlay={renderHover(src)}
           >
             <Card border="light" className="Card text-center">
-              <Link href={`/similarity/${name.replace('//','__')}`} passHref>
+              <Link href={`/card/${name.replace('//','__')}`} passHref>
                 <Card.Link>
                   <Card.Img variant="top" src={ src } />
                 </Card.Link>
@@ -45,7 +45,7 @@ export default function CardDisplay(props) {
           )
         : (
           <Card border="light" className="Card text-center">
-            <Link href={`/similarity/${name.replace('//','__')}`} passHref>
+            <Link href={`/card/${name.replace('//','__')}`} passHref>
               <Card.Link>
                 <Card.Img variant="top" src={ src } />
               </Card.Link>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from 'next/router'
 
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -10,35 +11,47 @@ import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import { useAppContext } from "../libs/contextLib";
 import Scryfall from "../libs/scryfall";
+import { simTextSearch } from "../libs/similarityLib";
 
 export default function Home() {
+  const router = useRouter()
+
   let meta = {
     'title': 'MagicML: MTG Tools, Powered by Machine Learning',
     'keywords': 'Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards',
     'description': 'Magic: The Gathering card search powered by Natural Language Processing',
     'canonical': 'https://magicml.com',
     'image': 'https://magicml.com/logo512.png'
-  };
-  const nCardsPerRow = 4;
+  }
+  const nCardsPerRow = 4
+  const nCardResults = 25;
 
   const {
     isLoading, setIsLoading,
     showAlert, setShowAlert,
-    formCard, setFormCard,
+    formSearch, setFormSearch,
     scryfallCards, setScryfallCards
-  } = useAppContext();
+  } = useAppContext()
 
-  const [radioValue, setRadioValue] = useState('text');
-
+  // text or card search selection
+  const [radioValue, setRadioValue] = useState('text')
+  const cardHint = "any part of card name..."
+  const textHint = "you're looking for a card that does what?"
   const radios = [
     { name: 'Text Search', value: 'text' },
     { name: 'Card Search', value: 'card' }
   ];
 
+  // Similarity Card Search
+  async function handleTextSearch(event) {
+    event.preventDefault();
+    router.push(`/free_text_search?q=${formSearch}`)
+  }
+
 
   // Scryfall Search
   function validateForm() {
-    return formCard.length > 0;
+    return formSearch.length > 0;
   }
 
   async function scryfallSearch(event) {
@@ -48,7 +61,7 @@ export default function Home() {
     setIsLoading(true);
   
     try {
-      const res = await Scryfall.get(`search?q=${formCard}`);
+      const res = await Scryfall.get(`search?q=${formSearch}`);
       var { data } = res.data;
 
       // only show cards in Arena
@@ -99,11 +112,12 @@ export default function Home() {
             ))}
           </ButtonGroup>
           <SearchBar
-            handleSubmit={scryfallSearch}
+            handleSubmit={radioValue==='text' ? handleTextSearch : scryfallSearch}
             isLoading={isLoading}
             validateForm={validateForm}
-            card={formCard}
-            setCard={setFormCard}
+            hint={radioValue==='text' ? textHint : cardHint}
+            search={formSearch}
+            setSearch={setFormSearch}
           />
         </div>
         <div className="HomeSearchResults">

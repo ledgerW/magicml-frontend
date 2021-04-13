@@ -4,14 +4,6 @@ const cardNamesPath = "./CARDNAMES.txt";
 
 export function getAllCardIds() {
   var cardNames = fs.readFileSync(cardNamesPath, 'utf8').toString().split("\n")
-  
-  /*
-  const cardNames = [
-    'Happily Ever After',
-    'Opt',
-    'Negate'
-  ]
-  */
 
   return cardNames.map(cardName => {
     return {

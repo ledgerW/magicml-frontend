@@ -5,7 +5,7 @@ import LoaderButton from "../components/LoaderButton";
 
 
 export default function SearchBar(props) {
-  const { handleSubmit, isLoading, validateForm, card, setCard } = props
+  const { handleSubmit, isLoading, validateForm, hint, search, setSearch } = props
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -22,9 +22,9 @@ export default function SearchBar(props) {
         </InputGroup.Prepend>
         <FormControl
           className="SearchBar"
-          value={card}
-          placeholder="any part of card name..."
-          onChange={(e) => setCard(e.target.value)}
+          value={search}
+          placeholder={hint}
+          onChange={(e) => setSearch(e.target.value)}
         />
       </InputGroup>
     </Form>

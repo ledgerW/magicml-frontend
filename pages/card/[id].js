@@ -13,7 +13,7 @@ import Filters from "../../components/Filters";
 import Scryfall from "../../libs/scryfall";
 import { useAppContext } from "../../libs/contextLib";
 import { onError } from "../../libs/errorLib";
-import { simCardSearch, simTextSearch } from "../../libs/similarityLib";
+import { simCardSearch } from "../../libs/similarityLib";
 import { getAllCardIds, removeFSPackage } from "../../libs/dynamicPathLib";
 import { defaultFilters, applyFilters } from "../../libs/filtersLib";
 
@@ -53,9 +53,9 @@ export default function Results({ id, simSearch, top3Sims }) {
   const {
     isLoading, setIsLoading,
     showAlert, setShowAlert,
-    formCard, setFormCard,
+    formSearch, setFormSearch,
     scryfallCards, setScryfallCards,
-    searchedCard, setSearchedCard,
+    searchedFor, setSearchedFor,
     simCards, setSimCards,
     filteredSimCards, setFilteredSimCards,
     filters, setFilters
@@ -75,7 +75,7 @@ export default function Results({ id, simSearch, top3Sims }) {
 
 
   function validateForm() {
-    return formCard.length > 0;
+    return formSearch.length > 0;
   }
 
   // Similarity Card Search
@@ -88,7 +88,7 @@ export default function Results({ id, simSearch, top3Sims }) {
     try {
         if (simResults.cards.length > 0) {
           let simSearchSimCards = simResults.cards[0].similarities.slice(0, nCardResults);
-          setSearchedCard(simResults.cards[0]);
+          setSearchedFor(simResults.cards[0]);
           setSimCards(simSearchSimCards);
           setFilteredSimCards(simSearchSimCards);
           setIsLoading(false);
@@ -111,7 +111,7 @@ export default function Results({ id, simSearch, top3Sims }) {
     setIsLoading(true);
   
     try {
-      const res = await Scryfall.get(`search?q=${formCard}`);
+      const res = await Scryfall.get(`search?q=${formSearch}`);
       var { data } = res.data;
 
       /*
@@ -151,15 +151,15 @@ export default function Results({ id, simSearch, top3Sims }) {
     )
   }
 
-  function renderSimilarityCards(searchedCard, isLoading, simCards, nCardsPerRow, showAlert, setShowAlert) {
+  function renderSimilarityCards(searchedFor, isLoading, simCards, nCardsPerRow, showAlert, setShowAlert) {
     return (
       <Row>
         <Col sm={3}>
-        {searchedCard && (
+        {searchedFor && (
           <div className="sticky-top">
             <CardDisplay
-              name={searchedCard.name}
-              image_urls={searchedCard.image_urls}
+              name={searchedFor.name}
+              image_urls={searchedFor.image_urls}
               cardOverlay={false}
             />
           </div>
@@ -190,8 +190,8 @@ export default function Results({ id, simSearch, top3Sims }) {
               handleSubmit={scryfallSearch}
               isLoading={isLoading}
               validateForm={validateForm}
-              card={formCard}
-              setCard={setFormCard}
+              search={formSearch}
+              setSearch={setFormSearch}
             />
           </Header>
           <div class="SearchHelper">
@@ -212,8 +212,8 @@ export default function Results({ id, simSearch, top3Sims }) {
             handleSubmit={scryfallSearch}
             isLoading={isLoading}
             validateForm={validateForm}
-            card={formCard}
-            setCard={setFormCard}
+            search={formSearch}
+            setSearch={setFormSearch}
           />
         </Header>
         <div className="container">
@@ -221,7 +221,7 @@ export default function Results({ id, simSearch, top3Sims }) {
             <Filters></Filters>
           </div>
           {simCards.length > 0
-            ? renderSimilarityCards(searchedCard, isLoading, filteredSimCards, nCardsPerRow, showAlert, setShowAlert)
+            ? renderSimilarityCards(searchedFor, isLoading, filteredSimCards, nCardsPerRow, showAlert, setShowAlert)
             : renderScryfallCards(isLoading, scryfallCards, nCardsPerRow, showAlert, setShowAlert)
           }
         </div>
