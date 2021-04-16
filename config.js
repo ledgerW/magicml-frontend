@@ -1,7 +1,7 @@
 const dev = {
   apiGateway: {
     REGION: 'us-east-1',
-    URL: "https://38axjswipg.execute-api.us-east-1.amazonaws.com/dev",
+    URL: "https://ffua5y66xh.execute-api.us-east-1.amazonaws.com/dev",
   }
 };
 
