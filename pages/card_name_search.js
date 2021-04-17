@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Row from "react-bootstrap/Row";
-import Col from 'react-bootstrap/Col';
 import { useRouter } from 'next/router';
 
 import CustomHead from "../components/CustomHead";
@@ -9,11 +7,8 @@ import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import SearchRadio from "../components/SearchRadio";
-import Filters from "../components/Filters";
 import { useAppContext } from "../libs/contextLib";
-import { onError } from "../libs/errorLib";
-import { simTextSearch } from "../libs/similarityLib";
-import { defaultFilters, applyFilters } from "../libs/filtersLib";
+import Scryfall from "../libs/scryfall";
 import {
   cardHint, textHint,
   validateForm,
@@ -33,53 +28,43 @@ export default function Results() {
   };
 
   const nCardsPerRow = 4;
-  const nCardResults = 25;
 
   const {
     isLoading, setIsLoading,
     showAlert, setShowAlert,
     formSearch, setFormSearch,
-    simCards, setSimCards,
-    filteredSimCards, setFilteredSimCards,
-    filters, setFilters,
+    scryfallCards, setScryfallCards,
     radioValue
   } = useAppContext();
 
 
   useEffect(() => {
     setIsLoading(true);
-    setFilters(defaultFilters);
-    loadTextSimResults();
+    scryfallSearch();
   }, [router.query.q]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    applyFilters(filters, simCards, nCardResults, setFilteredSimCards, setIsLoading, onError);
-  }, [filters]);
-
   
-  async function loadTextSimResults() {
+  // Scryfall API
+  async function scryfallSearch() {
+
     setShowAlert(false);
     setIsLoading(true);
-
-    let simResults = await simTextSearch(formSearch);
-    
+  
     try {
-      if (simResults.cards.length > 0) {
-        let simSearchSimCards = simResults.cards[0].similarities.slice(0, nCardResults);
-        setSimCards(simSearchSimCards);
-        setFilteredSimCards(simSearchSimCards);
-        setIsLoading(false);
-      } else {
+      const res = await Scryfall.get(`search?q=${formSearch}`);
+      var { data } = res.data;
+      
+      if (data.length == 0) {
         setShowAlert(true);
-        setIsLoading(false);
       }
-    }
-    catch(e) {
+
+      setScryfallCards(data)
+      setIsLoading(false);
+    } catch (e) {
+      setShowAlert(true);
       setIsLoading(false);
     }
   }
-
 
   // View
   return (
@@ -108,22 +93,20 @@ export default function Results() {
           </div>
         </Header>
         <div className="container">
-          <div className="ResultsFilters">
-            <Filters></Filters>
-          </div>
-          <Row>
-            <Col sm={12}>
-              <SearchResults
-                isLoading={isLoading}
-                simCards={filteredSimCards}
-                nCardsPerRow={nCardsPerRow}
-                cardOverlay={false}
-                showAlert={showAlert}
-                setShowAlert={setShowAlert}
-                alertType={"No similarities for that card yet :("}
-              />
-            </Col>
-          </Row>
+          {scryfallCards.length > 0 &&
+            <div className="SearchHelper">
+              <h2>What card do you want to find similarities for?</h2>
+            </div>
+          }
+          <SearchResults
+            isLoading={isLoading}
+            simCards={scryfallCards}
+            nCardsPerRow={nCardsPerRow}
+            cardOverlay={false}
+            showAlert={showAlert}
+            setShowAlert={setShowAlert}
+            alertType={"No Cards Found"}
+          />
         </div>
       </div>
       <Footer></Footer>

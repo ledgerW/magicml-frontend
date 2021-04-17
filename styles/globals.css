@@ -75,7 +75,7 @@ input[type=file] {
 
 .SearchHelper {
   background: #1f2833a2;
-  margin: 0vh 0vw 1vh 0vw;
+  margin: 10px 0px;
   padding: 1vh 0vw 0vh 0vw;
   color: var(--light-grey);
 }
@@ -92,6 +92,14 @@ input[type=file] {
 .SearchBar {
   height: 8vh;
   font-size: 5vh;
+}
+
+.SearchRadio {
+  padding: 0px 10px;
+}
+
+.HomeSearchBar .SearchRadio {
+  padding: 10px 0px;
 }
 
 .HomeSearchResults {

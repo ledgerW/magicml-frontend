@@ -8,13 +8,13 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 export default function CardDisplay(props) {
   const target = useRef(null);
   let { name, image_urls, cardOverlay } = props;
-  var src = '';
+  let src;
   
   try {
     src = JSON.parse(image_urls.replaceAll("'", "\""))
     src = Array.isArray(src) ? src[0].normal : src.normal
   } catch (e) {
-    src = image_urls.normal
+    src = image_urls.normal 
   }
 
   const renderHover = (src) => {

@@ -12,6 +12,7 @@ export function ContextWrapper({ children }) {
   const [simCards, setSimCards] = useState([]);
   const [filteredSimCards, setFilteredSimCards] = useState([]);
   const [filters, setFilters] = useState(defaultFilters);
+  const [radioValue, setRadioValue] = useState('text')
 
   const allContext = {
     isLoading, setIsLoading,
@@ -21,7 +22,8 @@ export function ContextWrapper({ children }) {
     searchedFor, setSearchedFor,
     simCards, setSimCards,
     filteredSimCards, setFilteredSimCards,
-    filters, setFilters
+    filters, setFilters,
+    radioValue, setRadioValue
   };
 
   return (

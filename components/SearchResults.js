@@ -43,7 +43,7 @@ export default function SearchResults(props) {
         {cards.map((card) => (
           <CardGroup className="justify-content-md-center">
             {card.map(({ name, image_urls }) => (
-              <Col md={3}>
+              <Col sm={Math.round(12/nCardsPerRow)}>
                 <CardDisplay name={name} image_urls={image_urls} cardOverlay={cardOverlay}/>
               </Col>
             ))}
