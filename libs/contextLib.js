@@ -6,22 +6,24 @@ export const AppContext = createContext();
 export function ContextWrapper({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [formCard, setFormCard] = useState("");
+  const [formSearch, setFormSearch] = useState("");
   const [scryfallCards, setScryfallCards] = useState([]);
-  const [searchedCard, setSearchedCard] = useState(null);
+  const [searchedFor, setSearchedFor] = useState(null);
   const [simCards, setSimCards] = useState([]);
   const [filteredSimCards, setFilteredSimCards] = useState([]);
   const [filters, setFilters] = useState(defaultFilters);
+  const [radioValue, setRadioValue] = useState('text')
 
   const allContext = {
     isLoading, setIsLoading,
     showAlert, setShowAlert,
-    formCard, setFormCard,
+    formSearch, setFormSearch,
     scryfallCards, setScryfallCards,
-    searchedCard, setSearchedCard,
+    searchedFor, setSearchedFor,
     simCards, setSimCards,
     filteredSimCards, setFilteredSimCards,
-    filters, setFilters
+    filters, setFilters,
+    radioValue, setRadioValue
   };
 
   return (

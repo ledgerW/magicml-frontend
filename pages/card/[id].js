@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
 import { useRouter } from 'next/router'
@@ -10,22 +10,28 @@ import SearchBar from "../../components/SearchBar";
 import SearchResults from "../../components/SearchResults";
 import CardDisplay from "../../components/CardDisplay";
 import Filters from "../../components/Filters";
-import Scryfall from "../../libs/scryfall";
+import SearchRadio from "../../components/SearchRadio";
 import { useAppContext } from "../../libs/contextLib";
 import { onError } from "../../libs/errorLib";
-import { similaritySearch } from "../../libs/similarityLib";
+import { simCardSearch } from "../../libs/similarityLib";
 import { getAllCardIds, removeFSPackage } from "../../libs/dynamicPathLib";
 import { defaultFilters, applyFilters } from "../../libs/filtersLib";
+import {
+  cardHint, textHint,
+  validateForm,
+  handleTextSearch, handleCardNameSearch
+} from "../../libs/formSearchLib";
 
 
 export default function Results({ id, simSearch, top3Sims }) {
   const router = useRouter()
 
+  // Static Pre Rendering for Metadata SEO 
   if (!top3Sims) {
     top3Sims = [''];
   }
   
-  let searchImageURLs;
+  let searchImageURLs = '';
   if (simSearch) {
     try {
       searchImageURLs = JSON.parse(simSearch.image_urls.replaceAll("'", "\""))
@@ -47,25 +53,29 @@ export default function Results({ id, simSearch, top3Sims }) {
     'top3Sims': top3Sims
   };
 
+  // Normal Page Functionality
   const nCardsPerRow = 4;
   const nCardResults = 25;
 
   const {
     isLoading, setIsLoading,
     showAlert, setShowAlert,
-    formCard, setFormCard,
-    scryfallCards, setScryfallCards,
-    searchedCard, setSearchedCard,
+    formSearch, setFormSearch,
+    searchedFor, setSearchedFor,
     simCards, setSimCards,
     filteredSimCards, setFilteredSimCards,
-    filters, setFilters
+    filters, setFilters,
+    radioValue
   } = useAppContext();
+
+  const [hasSims, setHasSims] = useState(false)
 
 
   useEffect(() => {
     setIsLoading(true);
+    setHasSims(false);
     setFilters(defaultFilters);
-    loadSimResults(id);
+    loadCardSimResults(id);
   }, [id]);
 
   useEffect(() => {
@@ -74,22 +84,20 @@ export default function Results({ id, simSearch, top3Sims }) {
   }, [filters]);
 
 
-  function validateForm() {
-    return formCard.length > 0;
-  }
-
-  // Similarity Search
-  async function loadSimResults(id) {
+  // Similarity Card Search
+  async function loadCardSimResults(id) {
     /*
-    id (str): card name
+    id (str): card name from Next Get Static Props
     */
-    let simResults = await similaritySearch(id);
+    let simResults = await simCardSearch(id);
+    console.log(simResults.cards)
     
     try {
         if (simResults.cards.length > 0) {
           let simSearchSimCards = simResults.cards[0].similarities.slice(0, nCardResults);
-          setSearchedCard(simResults.cards[0]);
+          setSearchedFor(simResults.cards[0]);
           setSimCards(simSearchSimCards);
+          setHasSims(true);
           setFilteredSimCards(simSearchSimCards);
           setIsLoading(false);
         } else {
@@ -103,83 +111,7 @@ export default function Results({ id, simSearch, top3Sims }) {
   }
 
 
-  // Scryfall Search
-  async function scryfallSearch(event) {
-    event.preventDefault();
-  
-    setShowAlert(false);
-    setIsLoading(true);
-  
-    try {
-      const res = await Scryfall.get(`search?q=${formCard}`);
-      var { data } = res.data;
-
-      /*
-      data = data.map(card => {
-        if (supportedSets.some(s => card.set_name.includes(s))) {
-          return card
-        }
-      }).filter(el => el != null);
-      */
-
-      if (data.length == 0) {
-        setShowAlert(true);
-      }
-      
-      setScryfallCards(data);
-      setSimCards([]);
-      setIsLoading(false);
-    } catch (e) {
-      setShowAlert(true);
-      setSimCards([]);
-      setIsLoading(false);
-    }
-  }
-
-  // Conditional Renders
-  function renderScryfallCards(isLoading, scryfallCards, nCardsPerRow, showAlert, setShowAlert) {
-    return (
-      <SearchResults
-        isLoading={isLoading}
-        simCards={scryfallCards}
-        nCardsPerRow={nCardsPerRow}
-        cardOverlay={false}
-        showAlert={showAlert}
-        setShowAlert={setShowAlert}
-        alertType={"No Cards Found"}
-      />
-    )
-  }
-
-  function renderSimilarityCards(searchedCard, isLoading, simCards, nCardsPerRow, showAlert, setShowAlert) {
-    return (
-      <Row>
-        <Col sm={3}>
-        {searchedCard && (
-          <div className="sticky-top">
-            <CardDisplay
-              name={searchedCard.name}
-              image_urls={searchedCard.image_urls}
-              cardOverlay={false}
-            />
-          </div>
-        )}
-        </Col>
-        <Col sm={9}>
-          <SearchResults
-            isLoading={isLoading}
-            simCards={simCards}
-            nCardsPerRow={nCardsPerRow}
-            cardOverlay={true}
-            showAlert={showAlert}
-            setShowAlert={setShowAlert}
-            alertType={"No similarities for that card yet :("}
-          />
-        </Col>
-      </Row>
-    )
-  }
-
+  // View
   if (router.isFallback) {
     return (
       <div>
@@ -187,12 +119,24 @@ export default function Results({ id, simSearch, top3Sims }) {
         <div className="ResultsPage">
           <Header>
             <SearchBar
-              handleSubmit={scryfallSearch}
+              handleSubmit={
+                radioValue==='text' ? 
+                handleTextSearch(router, formSearch) :
+                handleCardNameSearch(router, formSearch)
+              }
               isLoading={isLoading}
-              validateForm={validateForm}
-              card={formCard}
-              setCard={setFormCard}
+              validateForm={validateForm(formSearch)}
+              hint={
+                radioValue==='text' ? 
+                textHint : 
+                cardHint
+              }
+              search={formSearch}
+              setSearch={setFormSearch}
             />
+            <div className="SearchRadio">
+              <SearchRadio/>
+            </div>
           </Header>
           <div class="SearchHelper">
             <h2>Just a second :)</h2>
@@ -203,27 +147,60 @@ export default function Results({ id, simSearch, top3Sims }) {
     );
   }
 
+  // View
   return (
     <div>
       <CustomHead {...meta}/>
       <div className="ResultsPage">
         <Header>
           <SearchBar
-            handleSubmit={scryfallSearch}
+            handleSubmit={
+              radioValue==='text' ? 
+              handleTextSearch(router, formSearch) :
+              handleCardNameSearch(router, formSearch)
+            }
             isLoading={isLoading}
-            validateForm={validateForm}
-            card={formCard}
-            setCard={setFormCard}
+            validateForm={validateForm(formSearch)}
+            hint={
+              radioValue==='text' ? 
+              textHint : 
+              cardHint
+            }
+            search={formSearch}
+            setSearch={setFormSearch}
           />
+          <div className="SearchRadio">
+            <SearchRadio/>
+          </div>
         </Header>
         <div className="container">
           <div className="ResultsFilters">
             <Filters></Filters>
           </div>
-          {simCards.length > 0
-            ? renderSimilarityCards(searchedCard, isLoading, filteredSimCards, nCardsPerRow, showAlert, setShowAlert)
-            : renderScryfallCards(isLoading, scryfallCards, nCardsPerRow, showAlert, setShowAlert)
-          }
+          <Row>
+            <Col sm={3}>
+              {hasSims && (
+              <div className="sticky-top">
+                <CardDisplay
+                  name={searchedFor.name}
+                  image_urls={searchedFor.image_urls}
+                  cardOverlay={false}
+                />
+              </div>
+              )}
+            </Col>
+            <Col sm={hasSims ? 9 : 12}>
+              <SearchResults
+                isLoading={isLoading}
+                simCards={filteredSimCards}
+                nCardsPerRow={nCardsPerRow}
+                cardOverlay={true}
+                showAlert={showAlert}
+                setShowAlert={setShowAlert}
+                alertType={"No similarities for that card yet :("}
+              />
+            </Col>
+          </Row>
         </div>
       </div>
       <Footer></Footer>
@@ -232,7 +209,7 @@ export default function Results({ id, simSearch, top3Sims }) {
 }
 
 
-// Next.js Dynamic Route Functions
+// ========= Next.js Dynamic Route Functions ========
 export async function getStaticPaths() {
   const paths = getAllCardIds()
   return {
@@ -249,7 +226,7 @@ export async function getStaticProps({ params }) {
   let simSearch = null;
   let top3Sims = [''];
   let id = params.id;
-  let simResults = await similaritySearch(params.id);
+  let simResults = await simCardSearch(params.id);
   
   if (simResults.cards.length > 0) {
     simSearch = simResults.cards[0]
@@ -260,7 +237,6 @@ export async function getStaticProps({ params }) {
     ))
 
     top3Sims = [...new Set(top3Sims)].slice(0, 3)
-    console.log(top3Sims);
   }
 
   return {

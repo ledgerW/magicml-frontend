@@ -1,67 +1,37 @@
+import { useRouter } from 'next/router'
+
 import CustomHead from "../components/CustomHead";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
-import SearchResults from "../components/SearchResults";
+import SearchRadio from "../components/SearchRadio";
 import { useAppContext } from "../libs/contextLib";
-import Scryfall from "../libs/scryfall";
-import { supportedSets } from "../libs/magicLib";
+import {
+  cardHint, textHint,
+  validateForm,
+  handleTextSearch, handleCardNameSearch
+} from "../libs/formSearchLib";
+
 
 export default function Home() {
+  const router = useRouter()
+
   let meta = {
     'title': 'MagicML: MTG Tools, Powered by Machine Learning',
     'keywords': 'Magic: The Gathering, MTG, MTG Arena, Magic Card Search, Magic Cards',
     'description': 'Magic: The Gathering card search powered by Natural Language Processing',
     'canonical': 'https://magicml.com',
     'image': 'https://magicml.com/logo512.png'
-  };
-  const nCardsPerRow = 4;
+  }
 
   const {
-    isLoading, setIsLoading,
-    showAlert, setShowAlert,
-    formCard, setFormCard,
-    scryfallCards, setScryfallCards
-  } = useAppContext();
-
-
-  // Scryfall Search
-  function validateForm() {
-    return formCard.length > 0;
-  }
-
-  async function scryfallSearch(event) {
-    event.preventDefault();
-
-    setShowAlert(false);
-    setIsLoading(true);
+    isLoading,
+    formSearch, setFormSearch,
+    radioValue
+  } = useAppContext()
   
-    try {
-      const res = await Scryfall.get(`search?q=${formCard}`);
-      var { data } = res.data;
 
-      // only show cards in Arena
-      /*
-      data = data.map(card => {
-        if (supportedSets.some(s => card.set_name.includes(s))) {
-          return card
-        }
-      }).filter(el => el != null);
-      */
-      
-      if (data.length == 0) {
-        setShowAlert(true);
-      }
-
-      setScryfallCards(data)
-      setIsLoading(false);
-    } catch (e) {
-      setShowAlert(true);
-      setIsLoading(false);
-    }
-  }
-
-
+  // View
   return (
     <div>
       <CustomHead {...meta}/>
@@ -72,28 +42,24 @@ export default function Home() {
           <h5><b>Magic: The Gathering</b> card search powered by Natural Language Processing</h5>
         </div>
         <div className="HomeSearchBar container">
+          <div className="SearchRadio">
+            <SearchRadio/>
+          </div>
           <SearchBar
-            handleSubmit={scryfallSearch}
+            handleSubmit={
+              radioValue==='text' ? 
+              handleTextSearch(router, formSearch) :
+              handleCardNameSearch(router, formSearch)
+            }
             isLoading={isLoading}
-            validateForm={validateForm}
-            card={formCard}
-            setCard={setFormCard}
-          />
-        </div>
-        <div className="HomeSearchResults">
-          {scryfallCards.length > 0 &&
-            <div className="SearchHelper">
-              <h2>What card do you want to find similarities for?</h2>
-            </div>
-          }
-          <SearchResults
-            isLoading={isLoading}
-            simCards={scryfallCards}
-            nCardsPerRow={nCardsPerRow}
-            cardOverlay={false}
-            showAlert={showAlert}
-            setShowAlert={setShowAlert}
-            alertType={"No Cards Found"}
+            validateForm={validateForm(formSearch)}
+            hint={
+              radioValue==='text' ? 
+              textHint : 
+              cardHint
+            }
+            search={formSearch}
+            setSearch={setFormSearch}
           />
         </div>
       </div>
