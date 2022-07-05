@@ -1,4 +1,9 @@
 export const supportedSets = [
+  'Capenna',
+  'Kamigawa',
+  'Innistrad',
+  'Forgotten Realms',
+  'Strixhaven',
   'Throne of Eldraine',
   'Theros Beyond Death',
   'Ikoria: Lair of Behemoths',
