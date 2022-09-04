@@ -1,3 +1,8 @@
+export function getUniqueListBy(arr, key) {
+  return [...new Map(arr.map(item => [item[key], item])).values()]
+}
+
+
 export const defaultFilters = {
   colors: {
     W: true,
@@ -44,10 +49,10 @@ export function applyFilters(
   setFilteredSimCards,
   setIsLoading,
   onError
-  ) {
+) {
   try {
     let filteredCards = simCards;
-    
+
     // apply color filters
     let filterColors = Object.entries(filters.colors).map(pair => {
       if (pair[1]) {
@@ -104,7 +109,7 @@ export function applyFilters(
           return pair[0]
         }
       }).filter(el => el != null).join(',');
-      
+
       if (filterFormat.some(f => legalFormats.includes(f))) {
         return card
       }
@@ -114,7 +119,7 @@ export function applyFilters(
     setFilteredSimCards(filteredCards.slice(0, nCardResults));
     setIsLoading(false);
   }
-  catch(e) {
+  catch (e) {
     onError(e);
     setIsLoading(false);
   }

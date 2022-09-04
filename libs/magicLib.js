@@ -1,4 +1,5 @@
 export const supportedSets = [
+  'Dominaria',
   'Capenna',
   'Kamigawa',
   'Innistrad',

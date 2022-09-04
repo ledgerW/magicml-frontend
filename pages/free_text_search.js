@@ -13,7 +13,7 @@ import Filters from "../components/Filters";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import { simTextSearch } from "../libs/similarityLib";
-import { defaultFilters, applyFilters } from "../libs/filtersLib";
+import { defaultFilters, applyFilters, getUniqueListBy } from "../libs/filtersLib";
 import {
   cardHint, textHint,
   validateForm,
@@ -57,16 +57,18 @@ export default function Results() {
     applyFilters(filters, simCards, nCardResults, setFilteredSimCards, setIsLoading, onError);
   }, [filters]);
 
-  
+
   async function loadTextSimResults() {
     setShowAlert(false);
     setIsLoading(true);
 
     let simResults = await simTextSearch(formSearch);
-    
+
     try {
       if (simResults.cards.length > 0) {
-        let simSearchSimCards = simResults.cards[0].similarities.slice(0, nCardResults);
+        let simSearchSimCards = simResults.cards[0].similarities;
+        simSearchSimCards = getUniqueListBy(simSearchSimCards, 'name')
+        simSearchSimCards = simSearchSimCards.slice(0, nCardResults);
         setSimCards(simSearchSimCards);
         setFilteredSimCards(simSearchSimCards);
         setIsLoading(false);
@@ -75,7 +77,7 @@ export default function Results() {
         setIsLoading(false);
       }
     }
-    catch(e) {
+    catch (e) {
       setIsLoading(false);
     }
   }
@@ -84,27 +86,27 @@ export default function Results() {
   // View
   return (
     <div>
-      <CustomHead {...meta}/>
+      <CustomHead {...meta} />
       <div className="ResultsPage">
         <Header>
           <SearchBar
             handleSubmit={
-              radioValue==='text' ? 
-              handleTextSearch(router, formSearch) :
-              handleCardNameSearch(router, formSearch)
+              radioValue === 'text' ?
+                handleTextSearch(router, formSearch) :
+                handleCardNameSearch(router, formSearch)
             }
             isLoading={isLoading}
             validateForm={validateForm(formSearch)}
             hint={
-              radioValue==='text' ? 
-              textHint : 
-              cardHint
+              radioValue === 'text' ?
+                textHint :
+                cardHint
             }
             search={formSearch}
             setSearch={setFormSearch}
           />
           <div className="SearchRadio">
-            <SearchRadio/>
+            <SearchRadio />
           </div>
         </Header>
         <div className="container">

@@ -15,7 +15,7 @@ import { useAppContext } from "../../libs/contextLib";
 import { onError } from "../../libs/errorLib";
 import { simCardSearch } from "../../libs/similarityLib";
 import { getAllCardIds, removeFSPackage } from "../../libs/dynamicPathLib";
-import { defaultFilters, applyFilters } from "../../libs/filtersLib";
+import { defaultFilters, applyFilters, getUniqueListBy } from "../../libs/filtersLib";
 import {
   cardHint, textHint,
   validateForm,
@@ -30,7 +30,7 @@ export default function Results({ id, simSearch, top3Sims }) {
   if (!top3Sims) {
     top3Sims = [''];
   }
-  
+
   let searchImageURLs = '';
   if (simSearch) {
     try {
@@ -91,23 +91,25 @@ export default function Results({ id, simSearch, top3Sims }) {
     */
     let simResults = await simCardSearch(id);
     console.log(simResults.cards)
-    
+
     try {
-        if (simResults.cards.length > 0) {
-          let simSearchSimCards = simResults.cards[0].similarities.slice(0, nCardResults);
-          setSearchedFor(simResults.cards[0]);
-          setSimCards(simSearchSimCards);
-          setHasSims(true);
-          setFilteredSimCards(simSearchSimCards);
-          setIsLoading(false);
-        } else {
-          setShowAlert(true);
-          setIsLoading(false);
-        }
-      }
-      catch(e) {
+      if (simResults.cards.length > 0) {
+        let simSearchSimCards = simResults.cards[0].similarities;
+        simSearchSimCards = getUniqueListBy(simSearchSimCards, 'name')
+        simSearchSimCards = simSearchSimCards.slice(0, nCardResults);
+        setSearchedFor(simResults.cards[0]);
+        setSimCards(simSearchSimCards);
+        setHasSims(true);
+        setFilteredSimCards(simSearchSimCards);
+        setIsLoading(false);
+      } else {
+        setShowAlert(true);
         setIsLoading(false);
       }
+    }
+    catch (e) {
+      setIsLoading(false);
+    }
   }
 
 
@@ -115,27 +117,27 @@ export default function Results({ id, simSearch, top3Sims }) {
   if (router.isFallback) {
     return (
       <div>
-        <CustomHead {...meta}/>
+        <CustomHead {...meta} />
         <div className="ResultsPage">
           <Header>
             <SearchBar
               handleSubmit={
-                radioValue==='text' ? 
-                handleTextSearch(router, formSearch) :
-                handleCardNameSearch(router, formSearch)
+                radioValue === 'text' ?
+                  handleTextSearch(router, formSearch) :
+                  handleCardNameSearch(router, formSearch)
               }
               isLoading={isLoading}
               validateForm={validateForm(formSearch)}
               hint={
-                radioValue==='text' ? 
-                textHint : 
-                cardHint
+                radioValue === 'text' ?
+                  textHint :
+                  cardHint
               }
               search={formSearch}
               setSearch={setFormSearch}
             />
             <div className="SearchRadio">
-              <SearchRadio/>
+              <SearchRadio />
             </div>
           </Header>
           <div class="SearchHelper">
@@ -150,27 +152,27 @@ export default function Results({ id, simSearch, top3Sims }) {
   // View
   return (
     <div>
-      <CustomHead {...meta}/>
+      <CustomHead {...meta} />
       <div className="ResultsPage">
         <Header>
           <SearchBar
             handleSubmit={
-              radioValue==='text' ? 
-              handleTextSearch(router, formSearch) :
-              handleCardNameSearch(router, formSearch)
+              radioValue === 'text' ?
+                handleTextSearch(router, formSearch) :
+                handleCardNameSearch(router, formSearch)
             }
             isLoading={isLoading}
             validateForm={validateForm(formSearch)}
             hint={
-              radioValue==='text' ? 
-              textHint : 
-              cardHint
+              radioValue === 'text' ?
+                textHint :
+                cardHint
             }
             search={formSearch}
             setSearch={setFormSearch}
           />
           <div className="SearchRadio">
-            <SearchRadio/>
+            <SearchRadio />
           </div>
         </Header>
         <div className="container">
@@ -180,13 +182,13 @@ export default function Results({ id, simSearch, top3Sims }) {
           <Row>
             <Col sm={3}>
               {hasSims && (
-              <div className="sticky-top">
-                <CardDisplay
-                  name={searchedFor.name}
-                  image_urls={searchedFor.image_urls}
-                  cardOverlay={false}
-                />
-              </div>
+                <div className="sticky-top">
+                  <CardDisplay
+                    name={searchedFor.name}
+                    image_urls={searchedFor.image_urls}
+                    cardOverlay={false}
+                  />
+                </div>
               )}
             </Col>
             <Col sm={hasSims ? 9 : 12}>
@@ -227,7 +229,7 @@ export async function getStaticProps({ params }) {
   let top3Sims = [''];
   let id = params.id;
   let simResults = await simCardSearch(params.id);
-  
+
   if (simResults.cards.length > 0) {
     simSearch = simResults.cards[0]
     top3Sims = simSearch.similarities.filter(card => (
